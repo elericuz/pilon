@@ -13,3 +13,4 @@ extras/
 public/static/dojo
 public/static/foundation
 vendor/
+.DS_Store
