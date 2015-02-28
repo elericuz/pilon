@@ -1,0 +1,47 @@
+{
+    "name": "Pilon Cruz Verde",
+    "description": "Sistema de archivos para Cruz Verde",
+    "license": "MIT",
+    "keywords": [
+        "framework",
+        "zf2",
+        "foundation",
+        "scss",
+        "dojo",
+        "composer",
+        "activerecord"
+    ],
+    "homepage": "http://cv.sysbus.pragmum.com",
+    "authors": [
+    	{
+    		"name": "Eric Valera Miller",
+    		"email": "eric@elericuz.com"
+    	}
+    ],
+    "repositories": [
+    	{
+    		"type": "composer",
+    		"url": "https://raw.github.com/superdweebie/dojo/master"
+    	}
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "zendframework/zendframework": "2.3.*",
+        "components/foundation": "5.5.1",
+        "dojo/dojo" : "1.8.3",
+        "dojo/dijit" : "1.8.3",
+        "dojo/dojox" : "dev-master",
+        "dojo/util" : "1.8.3",
+        "php-activerecord/php-activerecord": "dev-master"
+    },
+    "scripts": {
+	    "pre-autoload-dump" : [
+	    	"rm -rf public/vendor",
+	        "mkdir -p public/vendor/{foundation,dojo}"
+	    ],
+	    "post-autoload-dump" : [
+	        "cp -R vendor/components/{foundation,jquery,modernizr,normalize.css} public/vendor/foundation",
+	        "cp -R extras/library/{dijit,dojo,dojox,util} public/vendor/dojo"
+	    ]
+    }
+}
