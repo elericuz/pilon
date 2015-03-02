@@ -1,0 +1,86 @@
+<?php echo $this->doctype(); ?>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <?php echo $this->headTitle('Pilon Cruz Verde'); ?>
+
+        <?php echo $this->headMeta()
+            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+        ?>
+
+        <!-- Le styles -->
+        <?php
+        echo $this->headLink(array(
+                'rel' => 'shortcut icon',
+                'type' => 'image/vnd.microsoft.icon',
+                'href' => $this->basePath() . '/img/favicon.ico'))
+                  ->prependStylesheet($this->basePath('vendor/foundation/foundation/css/foundation.css'))
+                  ->prependStylesheet($this->basePath('css/app.css'));
+        ?>
+
+        <!-- Scripts -->
+        <?php
+        echo $this->headScript()
+                  ->prependFile($this->basePath('vendor/foundation/foundation/js/vendor/modernizr.js'));
+        ?>
+
+    </head>
+    <body>
+        <div class="fixed">
+        <nav class="top-bar" data-topbar role="navigation"> <ul class="title-area"> <li class="name"> <h1><a href="#">My Site</a></h1> </li> <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone --> <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li> </ul> <section class="top-bar-section"> <!-- Right Nav Section --> <ul class="right"> <li class="active"><a href="#">Right Button Active</a></li> <li class="has-dropdown"> <a href="#">Right Button Dropdown</a> <ul class="dropdown"> <li><a href="#">First link in dropdown</a></li> <li class="active"><a href="#">Active link in dropdown</a></li> </ul> </li> </ul> <!-- Left Nav Section --> <ul class="left"> <li><a href="#">Left Nav Button</a></li> </ul> </section> </nav>
+        </div>
+        <div class="row">
+        <ul class="breadcrumbs"> <li><a href="#">Home</a></li> <li><a href="#">Features</a></li> <li class="unavailable"><a href="#">Gene Splicing</a></li> <li class="current"><a href="#">Cloning</a></li> </ul>
+        </div>
+        <span data-tooltip aria-haspopup="true" class="has-tip" title="Tooltips are awesome, you should totally use them!">extended information</span>
+        <p class="panel">
+            <strong class="show-for-landscape">You are in landscape orientation.</strong>
+            <strong class="show-for-portrait">You are in portrait orientation.</strong>
+        </p>
+        <div class="row">
+            <div class="medium-3 columns">3</div>
+            <div class="medium-3 columns">3</div>
+        </div>
+        <div class="row">
+            <div class="medium-3 columns">3</div>
+            <div class="medium-3 columns end">3 end</div>
+        </div>
+        <div class="row">
+        <div class="panel clearfix"> <a href="#" class="button [radius round] right">Float Right</a> <a class="button left">Float Left</a> </div>
+        <div class="alert-box radius" data-alert>Alert<a href="#" class="close">x</a></div>
+        <div class="progress round"> <span class="meter" style="width:70%;"></span> </div>
+        <a href="#" class="button radius">Button</a>
+        <span class="label round">Label</span>
+        <span data-tooltip class="radius" title="Tooltip">Tooltip</span>
+        </div>
+        <div class="medium-6 columns">
+        <div data-alert="" class="alert-box round">Round Alert<a class="close" href="#">×</a></div>
+        <div class="progress round">
+          <span style="width:70%;" class="meter"></span>
+        </div>
+        <a class="button round" href="#">Round Button</a>
+        <br>
+        <span class="label round">Round Label</span>
+        <br><br>
+        <span class="round" data-tooltip="" data-selector="tooltip-i6pivwgz1" aria-describedby="tooltip-i6pivwgz1" title="">Round Tooltip</span>
+        <br><br>
+      </div>
+      <div class="row">
+      <div class="off-canvas-wrap" data-offcanvas> <div class="inner-wrap"> <a class="left-off-canvas-toggle" href="#" >Menu</a> <!-- Off Canvas Menu --> <aside class="left-off-canvas-menu"> <!-- whatever you want goes here --> <ul> <li><a href="#">Item 1</a></li> ... </ul> </aside> <!-- main content goes here --> <p>Set in the year 0 F.E. ("Foundation Era"), The Psychohistorians opens on Trantor, the capital of the 12,000-year-old Galactic Empire. Though the empire appears stable and powerful, it is slowly decaying in ways that parallel the decline of the Western Roman Empire. Hari Seldon, a mathematician and psychologist, has developed psychohistory, a new field of science and psychology that equates all possibilities in large societies to mathematics, allowing for the prediction of future events.</p> <!-- close the off-canvas menu --> <a class="exit-off-canvas"></a> </div> </div>
+      </div>
+      <div class="row">
+      <table> <thead> <tr> <th width="200">Table Header</th> <th>Table Header</th> <th width="150">Table Header</th> <th width="150">Table Header</th> </tr> </thead> <tbody> <tr> <td>Content Goes Here</td> <td>This is longer content Donec id elit non mi porta gravida at eget metus.</td> <td>Content Goes Here</td> <td>Content Goes Here</td> </tr> <tr> <td>Content Goes Here</td> <td>This is longer Content Goes Here Donec id elit non mi porta gravida at eget metus.</td> <td>Content Goes Here</td> <td>Content Goes Here</td> </tr> <tr> <td>Content Goes Here</td> <td>This is longer Content Goes Here Donec id elit non mi porta gravida at eget metus.</td> <td>Content Goes Here</td> <td>Content Goes Here</td> </tr> </tbody> </table>
+      </div>
+      <div class="row" data-equalizer> <div class="large-6 columns"> <ul class="pricing-table" data-equalizer-watch> <br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>d<br> <li class="cta-button"><a class="button" href="#">Buy Now</a></li> </ul> </div> <div class="large-6 columns"> <ul class="pricing-table" data-equalizer-watch> ... <li class="cta-button"><a class="button" href="#">Buy Now</a></li> </ul> </div> </div>
+        <?php echo $this->content; ?>
+        <?php echo $this->inlineScript() ?>
+
+        <script src="vendor/foundation/foundation/js/vendor/jquery.js"></script>
+        <script src="vendor/foundation/foundation/js/foundation.min.js"></script>
+        <script>
+        $(document).foundation();
+        </script>
+    </body>
+</html>
