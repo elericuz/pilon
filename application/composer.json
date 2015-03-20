@@ -32,16 +32,23 @@
         "dojo/dijit" : "1.8.3",
         "dojo/dojox" : "dev-master",
         "dojo/util" : "1.8.3",
-        "php-activerecord/php-activerecord": "dev-master"
+        "doctrine/doctrine-orm-module": "0.7.*"
     },
     "scripts": {
-	    "pre-autoload-dump" : [
-	    	"rm -rf public/vendor",
-	        "mkdir -p public/vendor/{foundation,dojo}"
-	    ],
-	    "post-autoload-dump" : [
-	        "cp -R vendor/components/{foundation,jquery,modernizr,normalize.css} public/vendor/foundation",
-	        "cp -R extras/library/{dijit,dojo,dojox,util} public/vendor/dojo"
-	    ]
+            "pre-autoload-dump" : [
+                "rm -rf public/vendor",
+                "mkdir -p public/vendor/foundation",
+                "mkdir -p public/vendor/dojo"
+            ],
+            "post-autoload-dump" : [
+                "cp -R vendor/components/foundation public/vendor/foundation",
+                "cp -R vendor/components/jquery public/vendor/foundation",
+                "cp -R vendor/components/modernizr public/vendor/foundation",
+                "cp -R vendor/components/normalize.css public/vendor/foundation",
+                "cp -R extras/library/dijit public/vendor/dojo",
+                "cp -R extras/library/dojo public/vendor/dojo",
+                "cp -R extras/library/dojox public/vendor/dojo",
+                "cp -R extras/library/util public/vendor/dojo"
+            ]
     }
 }
