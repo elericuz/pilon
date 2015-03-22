@@ -1,10 +1,10 @@
 <?php
 namespace Repository\Controller;
 
-use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Common\Controller\MainController;
 
-class IndexController extends AbstractActionController
+class IndexController extends MainController
 {
     public function indexAction()
     {
