@@ -5,22 +5,24 @@
  *
  * @see https://github.com/zendframework/ZFTool
  */
-
 return array(
     'modules' => array(
         'Application',
         'Repository',
         'DoctrineModule',
         'DoctrineORMModule',
+        'Common'
     ),
     'module_listener_options' => array(
         'module_paths' => array(
             './module',
-            './vendor'
+            './vendor',
+            './library'
         ),
         'config_glob_paths' => array(
             'config/autoload/{,*.}{global,local}.php',
             'module/{*}/config/autoload/{,*.}{global,local}.php'
-        )
+        ),
+        'cache_dir' => 'data/cache/'
     )
 );
