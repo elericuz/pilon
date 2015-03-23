@@ -21,6 +21,12 @@ class IndexController extends MainController
 
     public function dashboardAction()
     {
+        $files_obj = $this->em->getRepository('Application\Entity\FileSystem')->findBy(array('fisiParentId'=>0, 'fisiType'=>1, 'fisvStatus'=>1), array('fisdUploadDate'=>'desc'));
 
+        $array = array(
+            'files' => $files_obj
+        );
+
+        return new ViewModel($array);
     }
 }

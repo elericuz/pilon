@@ -5,12 +5,12 @@
             <div class="row">
                 <div class="small-12 columns">
                     <div class="panel">
-                    <?php for($i=1; $i<=5; $i++) { ?>
+                    <?php foreach($files as $file) { ?>
                     <div class="row list files <?php echo $this->cycle(array('row-1', 'row-2'))->next() ?>">
-                        <div class="small-12 columns"><a href="<?php echo $this->url('view-file'); ?>">Archivo <?php echo $i; ?></a></div>
-                        <div class="small-4 medium-3 large-3 columns text-small">13-02-2015</div>
+                        <div class="small-12 columns"><a href="<?php echo $this->url('view-file', array('filename'=>$file->getFisvName())); ?>"><?php echo $file->getFisvRealName(); ?></a></div>
+                        <div class="small-4 medium-3 large-3 columns text-small"><?php echo $file->getFisdUploadDate()->format('d-m-Y'); ?></div>
                         <div class="small-8 medium-4 end large-3 columns text-small">Descargas: <?php echo rand(1, 9); ?></div>
-                        <div class="small-12 medium-12 large-6 columns text-small"><?php echo md5(rand(1, 9)); ?></div>
+                        <div class="small-12 medium-12 large-6 columns text-small">md5:<?php echo $file->getFisvName(); ?></div>
                     </div>
                     <?php } ?>
                     </div>

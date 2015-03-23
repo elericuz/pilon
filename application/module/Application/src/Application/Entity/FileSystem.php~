@@ -1,0 +1,95 @@
+<?php
+
+namespace Application\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * FileSystem
+ *
+ * @ORM\Table(name="file_system")
+ * @ORM\Entity(repositoryClass="Application\Entity\Repository\FileSystemRepository")
+ */
+class FileSystem
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="fisi_id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $fisiId;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="fisi_parent_id", type="integer", nullable=true)
+     */
+    private $fisiParentId = '0';
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="fisi_type", type="integer", nullable=true)
+     */
+    private $fisiType = '1';
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="fisv_name", type="string", length=32, nullable=true)
+     */
+    private $fisvName;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="fisv_real_name", type="string", length=255, nullable=true)
+     */
+    private $fisvRealName;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="fisv_mimetype", type="string", length=30, nullable=true)
+     */
+    private $fisvMimetype;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="fisv_extension", type="string", length=10, nullable=true)
+     */
+    private $fisvExtension;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="fist_description", type="text", nullable=true)
+     */
+    private $fistDescription;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fisd_upload_date", type="datetime", nullable=true)
+     */
+    private $fisdUploadDate;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="fisv_upload_ip", type="string", length=17, nullable=true)
+     */
+    private $fisvUploadIp;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="fisv_status", type="integer", nullable=true)
+     */
+    private $fisvStatus = '1';
+
+
+}

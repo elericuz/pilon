@@ -15,13 +15,13 @@
                                 <strong>Nombre del Archivo</strong>
                             </div>
                             <div class="small-12 columns">
-                                nombre-del-archivo.xls
+                                <?php echo $file['real_name']; ?>
                             </div>
                         </div>
                         <br />
                         <div class="row">
                             <div class="small-12 columns">
-                                <a href="#">Descargar</a>
+                                <a href="<?php echo $this->url('download-file', array('filename'=>$file['name'])); ?>">Descargar</a>
                             </div>
                         </div>
                         <br />
@@ -30,7 +30,7 @@
                                 <strong>Tamaño del Archivo</strong>
                             </div>
                             <div class="small-12 columns">
-                                10.45 Mb
+                                <?php echo $file['size']; ?>
                             </div>
                         </div>
                         <br />
@@ -39,7 +39,7 @@
                                 <strong>Fecha de Subida</strong>
                             </div>
                             <div class="small-12 columns">
-                                13-02-2015
+                                <?php echo $file['upload_date']; ?>
                             </div>
                         </div>
                         <br />
@@ -48,7 +48,7 @@
                                 <strong>Descripción del Archivo</strong>
                             </div>
                             <div class="small-12 columns">
-                                Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Maecenas lorem purus, blandit vitae lacinia eu, cursus a elit.
+                                <?php echo $file['description']; ?>
                             </div>
                         </div>
                     </div>

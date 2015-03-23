@@ -10,31 +10,35 @@
             <a href="#" class="button radius tiny expand" data-reveal-id="createFolderModal">Crear Carpeta</a>
             <div id="createFolderModal" class="reveal-modal tiny" data-reveal>
                 <br />
-                <p>Creará un carpeta nueva dentro de <strong><em>carpeta 1</em></strong></p>
-                <div class="small-12 columns">
-                    <label>Nombre de la nueva carpeta
-                        <input type="text" placeholder="escriba un nombre para la nueva carpeta" />
-                    </label>
-                    <button class="button tiny">Crear</button>
-                </div>
-                <a class="close-reveal-modal">&#215;</a>
+                <form action="<?php echo $this->url('create-folder'); ?>" method="post">
+                    <p>Creará un carpeta nueva dentro de <strong><em>carpeta 1</em></strong></p>
+                    <div class="small-12 columns">
+                        <label>Nombre de la nueva carpeta
+                            <input type="text" name="folder_name" placeholder="escriba un nombre para la nueva carpeta" />
+                        </label>
+                        <button class="button tiny" type="submit">Crear</button>
+                    </div>
+                    <a class="close-reveal-modal">&#215;</a>
+                </form>
             </div>
         </div>
         <div class="small-6 medium-10 columns">
             <a href="#" class="button radius tiny" data-reveal-id="uploadFileModal">+ Subir Archivos</a>
             <div id="uploadFileModal" class="reveal-modal tiny" data-reveal>
                 <br />
-                <p>Subirá archivos dentro de <em>carpeta 1</em></p>
-                <div class="small-12 columns">
-                    <label>Archivo
-                        <input type="file" />
-                    </label>
-                    <label>Descripción del Archivo
-                        <textarea placeholder="Escriba una descrición del archivo que subirá"></textarea>
-                    </label>
-                    <button class="button tiny">Subir</button>
-                </div>
-                <a class="close-reveal-modal">&#215;</a>
+                <form action="<?php echo $this->url('add-file'); ?>" method="post" enctype="multipart/form-data">
+                    <p>Subirá archivos dentro de <em>carpeta 1</em></p>
+                    <div class="small-12 columns">
+                        <label>Archivo
+                            <input type="file" name="file" />
+                        </label>
+                        <label>Descripción del Archivo
+                            <textarea placeholder="Escriba una descrición del archivo que subirá" name="file_description"></textarea>
+                        </label>
+                        <button class="button tiny" type="submit">Subir</button>
+                    </div>
+                    <a class="close-reveal-modal">&#215;</a>
+                </form>
             </div>
         </div>
     </div>
@@ -51,10 +55,10 @@
         <form>
             <div class="small-12 columns">
                 <div class="panel">
-                    <?php for($i=1; $i<=rand(1,5); $i++) { ?>
+                    <?php foreach($this->folders as $folder) { ?>
                     <div class="row list files <?php echo $this->cycle(array('row-1', 'row-2'))->next() ?>">
                         <div class="small-12 columns">
-                            <input id="archivo-1" type="checkbox"><label for="archivo-1"><a href="#">Carpeta 1</a></label>
+                            <input id="folder_<?php echo $folder->getFisiId(); ?>" type="checkbox"><label for="folder_<?php echo $folder->getFisiId(); ?>"><a href="#"><?php echo $folder->getFisvRealName(); ?></a></label>
                         </div>
                         <div class="small-12 columns tab-40 text-small">
                             <?php echo rand(1,8); ?> Carpetas, <?php echo rand(0,20); ?> Archivos
@@ -76,17 +80,17 @@
         <form>
             <div class="small-12 columns">
                 <div class="panel">
-                    <?php for($i=1; $i<=rand(2,20); $i++) { ?>
+                    <?php foreach($this->files as $file) { ?>
                     <div class="row list files <?php echo $this->cycle(array('row-2', 'row-1'))->next() ?>">
                         <div class="small-8 large-5 columns">
-                            <input id="archivo-1" type="checkbox">
-                            <label for="archivo-1"><a href="<?php echo $this->url('view-file'); ?>">Archivo <?php echo $i; ?></a></label>
+                            <input id="file-<?php echo $file->getFisiId(); ?>" type="checkbox">
+                            <label for="file-<?php echo $file->getFisiId(); ?>"><a href="<?php echo $this->url('view-file', array('filename'=>$file->getFisvName())); ?>"><?php echo $file->getFisvRealName(); ?></a></label>
                         </div>
-                        <div class="show-for-large-up large-5 columns">Mauris varius, ex sit amet pretium viverra...</div>
-                        <div class="small-4 large-2 columns text-right"><a href="#">Descargar</a></div>
-                        <div class="small-4 medium-2 large-2 columns text-small tab-40">13-02-2015</div>
+                        <div class="show-for-large-up large-5 columns"><?php echo $file->getFistDescription(); ?></div>
+                        <div class="small-4 large-2 columns text-right"><a href="<?php echo $this->url('download-file', array('filename'=>$file->getFisvName())); ?>">Descargar</a></div>
+                        <div class="small-4 medium-2 large-2 columns text-small tab-40"><?php echo $file->getFisdUploadDate()->format('d-m-Y'); ?></div>
                         <div class="small-8 medium-2 large-2 columns text-small">Descargas: <?php echo rand(1, 9); ?></div>
-                        <div class="small-12 medium-8 columns text-small show-for-medium-up" ><?php echo md5(rand(1, 9)); ?></div>
+                        <div class="small-12 medium-8 columns text-small show-for-medium-up" >md5-hash: <?php echo $file->getFisvName(); ?></div>
                     </div>
                     <?php } ?>
                 </div>
