@@ -1,0 +1,46 @@
+<?php
+
+namespace Application\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Client
+ *
+ * @ORM\Table(name="client")
+ * @ORM\Entity(repositoryClass="Application\Entity\Repository\ClientRepository")
+ */
+class Client
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="clii_id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $cliiId;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="cliv_name", type="string", length=255, nullable=true)
+     */
+    private $clivName;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="clid_creation_date", type="datetime", nullable=true)
+     */
+    private $clidCreationDate;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="clii_status", type="integer", nullable=true)
+     */
+    private $cliiStatus = '1';
+
+
+}

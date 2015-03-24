@@ -1,0 +1,80 @@
+<?php
+
+namespace Application\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * FlieSystemClient
+ *
+ * @ORM\Table(name="flie_system_client", indexes={@ORM\Index(name="has_client", columns={"clii_id"}), @ORM\Index(name="has_fs", columns={"fisi_id"})})
+ * @ORM\Entity(repositoryClass="Application\Entity\Repository\FileSystemClientRepository")
+ */
+class FlieSystemClient
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="fsci_id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $fsciId;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="fsci_parent_id", type="integer", nullable=true)
+     */
+    private $fsciParentId;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="fscv_real_name", type="string", length=255, nullable=true)
+     */
+    private $fscvRealName;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="fsct_description", type="text", nullable=true)
+     */
+    private $fsctDescription;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fscd_upload_date", type="datetime", nullable=true)
+     */
+    private $fscdUploadDate;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="fsci_status", type="integer", nullable=true)
+     */
+    private $fsciStatus = '1';
+
+    /**
+     * @var \Application\Entity\Client
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\Client")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="clii_id", referencedColumnName="clii_id")
+     * })
+     */
+    private $clii;
+
+    /**
+     * @var \Application\Entity\FileSystem
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\FileSystem")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="fisi_id", referencedColumnName="fisi_id")
+     * })
+     */
+    private $fisi;
+
+
+}
