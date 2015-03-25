@@ -22,9 +22,6 @@ class IndexController extends MainController
 
     public function dashboardAction()
     {
-<<<<<<< HEAD
-
-=======
         $fsc_obj = new FileSystemRepository($this->em);
 
         $files = $fsc_obj->getLastUploadedFiles(1);
@@ -34,6 +31,5 @@ class IndexController extends MainController
         );
 
         return new ViewModel($array);
->>>>>>> 54c1ca1... FREN-002 now it's possible create/add folders as well as files within other folders separated by clients
     }
 }
