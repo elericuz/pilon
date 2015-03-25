@@ -7,10 +7,17 @@
                     <div class="panel">
                     <?php for($i=1; $i<=5; $i++) { ?>
                     <div class="row list files <?php echo $this->cycle(array('row-1', 'row-2'))->next() ?>">
+<<<<<<< HEAD
                         <div class="small-12 columns"><a href="<?php echo $this->url('view-file'); ?>">Archivo <?php echo $i; ?></a></div>
                         <div class="small-4 medium-3 large-3 columns text-small">13-02-2015</div>
                         <div class="small-8 medium-4 end large-3 columns text-small">Descargas: <?php echo rand(1, 9); ?></div>
                         <div class="small-12 medium-12 large-6 columns text-small"><?php echo md5(rand(1, 9)); ?></div>
+=======
+                        <div class="small-12 columns"><a href="<?php echo $this->url('view-file', array('filename'=>$file['fisvName'])); ?>"><?php echo $file['fscvRealName']; ?></a></div>
+                        <div class="small-4 medium-3 large-3 columns text-small"><?php echo $file['fscdUploadDate']->format('d-m-Y'); ?></div>
+                        <div class="small-8 medium-4 end large-3 columns text-small">Descargas: <?php echo rand(1, 9); ?></div>
+                        <div class="small-12 medium-12 large-6 columns text-small">md5:<?php echo $file['fisvName']; ?></div>
+>>>>>>> 54c1ca1... FREN-002 now it's possible create/add folders as well as files within other folders separated by clients
                     </div>
                     <?php } ?>
                     </div>

@@ -5,7 +5,7 @@ use Common\Controller\MainController;
 use Zend\Validator\NotEmpty;
 use Zend\Validator\File\NotExists;
 use Application\Entity\FileSystem;
-use Application\Entity\FlieSystemClient;
+use Application\Entity\FileSystemClient;
 
 /**
  * FileController
@@ -49,18 +49,20 @@ class FileController extends MainController
                        ->setFisvUploadIp($_SERVER['REMOTE_ADDR']);
                 $this->em->persist($FS_obj);
 
-                $FSC_obj = new FlieSystemClient();
+                $FSC_obj = new FileSystemClient();
                 $FSC_obj->setFsciParentId(0)
                         ->setClii($Client_obj)
                         ->setFisi($FS_obj)
-                        ->setFscvRealName(trim(trim($file['name'])))
+                        ->setFsciParentId($request->getPost('folder'))
+                        ->setFscvRealName(trim($file['name']))
+                        ->setFscvFriendlyName(trim($file['name']))
                         ->setFsctDescription($request->getPost('file_description'))
                         ->setFscdUploadDate(new \DateTime("now"));
                 $this->em->persist($FSC_obj);
 
                 $this->em->flush();
 
-                return $this->redirect()->toRoute('my-repo');
+                return $this->redirect()->toRoute('my-repo', array('folder'=>$request->getPost('folder')));
             }
         }
     }
