@@ -3,21 +3,15 @@ namespace Repository\Controller;
 
 use Zend\View\Model\ViewModel;
 use Common\Controller\MainController;
-<<<<<<< HEAD
-=======
 use Zend\Validator\NotEmpty;
 use Zend\Validator\File\NotExists;
 use Common\Classes\String;
 use Repository\Model\FileSystemRepository;
->>>>>>> 54c1ca1... FREN-002 now it's possible create/add folders as well as files within other folders separated by clients
 
 class IndexController extends MainController
 {
     public function indexAction()
     {
-<<<<<<< HEAD
-        return new ViewModel();
-=======
         $parent = $this->params()->fromRoute('folder', 0);
 
         $fsc_obj = new FileSystemRepository($this->em);
@@ -31,21 +25,15 @@ class IndexController extends MainController
         );
 
         return new ViewModel($array);
->>>>>>> 54c1ca1... FREN-002 now it's possible create/add folders as well as files within other folders separated by clients
     }
 
     public function viewAction()
     {
-<<<<<<< HEAD
-        return new ViewModel();
-=======
         $filename = $this->params()->fromRoute('filename', false);
 
 	    $notEmpty_obj = new NotEmpty();
 	    if(!$notEmpty_obj->isValid($filename))
 	        throw new \RuntimeException("Invalid filename specified");
-
-	    //$file_obj = $this->em->getRepository('Application\Entity\FileSystem')->findBy(array('fisvName'=>$filename, 'fisvStatus'=>1));
 
 	    $file_obj = new FileSystemRepository($this->em);
 
@@ -77,7 +65,6 @@ class IndexController extends MainController
 	    );
 
         return new ViewModel($array);
->>>>>>> 54c1ca1... FREN-002 now it's possible create/add folders as well as files within other folders separated by clients
     }
 }
 
