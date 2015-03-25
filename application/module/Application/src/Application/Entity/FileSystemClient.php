@@ -5,12 +5,12 @@ namespace Application\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * FlieSystemClient
+ * FileSystemClient
  *
- * @ORM\Table(name="flie_system_client", indexes={@ORM\Index(name="has_client", columns={"clii_id"}), @ORM\Index(name="has_fs", columns={"fisi_id"})})
- * @ORM\Entity(repositoryClass="Application\Entity\Repository\FileSystemClientRepository")
+ * @ORM\Table(name="file_system_client", indexes={@ORM\Index(name="has_client", columns={"clii_id"}), @ORM\Index(name="has_fs", columns={"fisi_id"})})
+ * @ORM\Entity
  */
-class FlieSystemClient
+class FileSystemClient
 {
     /**
      * @var integer
@@ -31,9 +31,16 @@ class FlieSystemClient
     /**
      * @var string
      *
-     * @ORM\Column(name="fscv_real_name", type="string", length=255, nullable=true)
+     * @ORM\Column(name="fscv_real_name", type="string", length=255, nullable=false)
      */
-    private $fscvRealName;
+    private $fscvRealName = '';
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="fscv_friendly_name", type="string", length=255, nullable=false)
+     */
+    private $fscvFriendlyName;
 
     /**
      * @var string
@@ -92,7 +99,7 @@ class FlieSystemClient
      * Set fsciParentId
      *
      * @param integer $fsciParentId
-     * @return FlieSystemClient
+     * @return FileSystemClient
      */
     public function setFsciParentId($fsciParentId)
     {
@@ -115,7 +122,7 @@ class FlieSystemClient
      * Set fscvRealName
      *
      * @param string $fscvRealName
-     * @return FlieSystemClient
+     * @return FileSystemClient
      */
     public function setFscvRealName($fscvRealName)
     {
@@ -135,10 +142,33 @@ class FlieSystemClient
     }
 
     /**
+     * Set fscvFriendlyName
+     *
+     * @param string $fscvFriendlyName
+     * @return FileSystemClient
+     */
+    public function setFscvFriendlyName($fscvFriendlyName)
+    {
+        $this->fscvFriendlyName = $fscvFriendlyName;
+
+        return $this;
+    }
+
+    /**
+     * Get fscvFriendlyName
+     *
+     * @return string 
+     */
+    public function getFscvFriendlyName()
+    {
+        return $this->fscvFriendlyName;
+    }
+
+    /**
      * Set fsctDescription
      *
      * @param string $fsctDescription
-     * @return FlieSystemClient
+     * @return FileSystemClient
      */
     public function setFsctDescription($fsctDescription)
     {
@@ -161,7 +191,7 @@ class FlieSystemClient
      * Set fscdUploadDate
      *
      * @param \DateTime $fscdUploadDate
-     * @return FlieSystemClient
+     * @return FileSystemClient
      */
     public function setFscdUploadDate($fscdUploadDate)
     {
@@ -184,7 +214,7 @@ class FlieSystemClient
      * Set fsciStatus
      *
      * @param integer $fsciStatus
-     * @return FlieSystemClient
+     * @return FileSystemClient
      */
     public function setFsciStatus($fsciStatus)
     {
@@ -207,7 +237,7 @@ class FlieSystemClient
      * Set clii
      *
      * @param \Application\Entity\Client $clii
-     * @return FlieSystemClient
+     * @return FileSystemClient
      */
     public function setClii(\Application\Entity\Client $clii = null)
     {
@@ -230,7 +260,7 @@ class FlieSystemClient
      * Set fisi
      *
      * @param \Application\Entity\FileSystem $fisi
-     * @return FlieSystemClient
+     * @return FileSystemClient
      */
     public function setFisi(\Application\Entity\FileSystem $fisi = null)
     {

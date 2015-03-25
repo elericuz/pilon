@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * FileSystem
  *
- * @ORM\Table(name="file_system", uniqueConstraints={@ORM\UniqueConstraint(name="fisv_name", columns={"fisv_name"})})
- * @ORM\Entity(repositoryClass="Application\Entity\Repository\FileSystemRepository")
+ * @ORM\Table(name="file_system")
+ * @ORM\Entity
  */
 class FileSystem
 {

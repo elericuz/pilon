@@ -3,9 +3,12 @@ return array(
     'router' => array(
         'routes' => array(
             'my-repo' => array(
-                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'type' => 'segment',
                 'options' => array(
-                    'route' => '/my-repo',
+                    'route' => '/my-repo[/:folder]',
+                    'constraints' => array(
+                        'folder'  => '[0-9]+',
+                    ),
                     'defaults' => array(
                         'controller' => 'Repository\Controller\Index',
                         'action' => 'index',
