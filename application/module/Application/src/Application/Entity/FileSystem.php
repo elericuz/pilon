@@ -24,6 +24,13 @@ class FileSystem
     /**
      * @var integer
      *
+     * @ORM\Column(name="fisi_parent_id", type="integer", nullable=true)
+     */
+    private $fisiParentId = '0';
+
+    /**
+     * @var integer
+     *
      * @ORM\Column(name="fisi_type", type="integer", nullable=true)
      */
     private $fisiType = '1';
@@ -50,11 +57,32 @@ class FileSystem
     private $fisvMimetype;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="fisv_extension", type="string", length=10, nullable=true)
+     */
+    private $fisvExtension;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="fist_description", type="text", nullable=true)
+     */
+    private $fistDescription;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="fisd_upload_date", type="datetime", nullable=true)
      */
     private $fisdUploadDate;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="fisv_upload_ip", type="string", length=17, nullable=true)
+     */
+    private $fisvUploadIp;
 
     /**
      * @var integer
@@ -68,11 +96,34 @@ class FileSystem
     /**
      * Get fisiId
      *
-     * @return integer
+     * @return integer 
      */
     public function getFisiId()
     {
         return $this->fisiId;
+    }
+
+    /**
+     * Set fisiParentId
+     *
+     * @param integer $fisiParentId
+     * @return FileSystem
+     */
+    public function setFisiParentId($fisiParentId)
+    {
+        $this->fisiParentId = $fisiParentId;
+
+        return $this;
+    }
+
+    /**
+     * Get fisiParentId
+     *
+     * @return integer 
+     */
+    public function getFisiParentId()
+    {
+        return $this->fisiParentId;
     }
 
     /**
@@ -91,7 +142,7 @@ class FileSystem
     /**
      * Get fisiType
      *
-     * @return integer
+     * @return integer 
      */
     public function getFisiType()
     {
@@ -114,7 +165,7 @@ class FileSystem
     /**
      * Get fisvName
      *
-     * @return string
+     * @return string 
      */
     public function getFisvName()
     {
@@ -137,7 +188,7 @@ class FileSystem
     /**
      * Get fisvRealName
      *
-     * @return string
+     * @return string 
      */
     public function getFisvRealName()
     {
@@ -160,11 +211,57 @@ class FileSystem
     /**
      * Get fisvMimetype
      *
-     * @return string
+     * @return string 
      */
     public function getFisvMimetype()
     {
         return $this->fisvMimetype;
+    }
+
+    /**
+     * Set fisvExtension
+     *
+     * @param string $fisvExtension
+     * @return FileSystem
+     */
+    public function setFisvExtension($fisvExtension)
+    {
+        $this->fisvExtension = $fisvExtension;
+
+        return $this;
+    }
+
+    /**
+     * Get fisvExtension
+     *
+     * @return string 
+     */
+    public function getFisvExtension()
+    {
+        return $this->fisvExtension;
+    }
+
+    /**
+     * Set fistDescription
+     *
+     * @param string $fistDescription
+     * @return FileSystem
+     */
+    public function setFistDescription($fistDescription)
+    {
+        $this->fistDescription = $fistDescription;
+
+        return $this;
+    }
+
+    /**
+     * Get fistDescription
+     *
+     * @return string 
+     */
+    public function getFistDescription()
+    {
+        return $this->fistDescription;
     }
 
     /**
@@ -183,11 +280,34 @@ class FileSystem
     /**
      * Get fisdUploadDate
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getFisdUploadDate()
     {
         return $this->fisdUploadDate;
+    }
+
+    /**
+     * Set fisvUploadIp
+     *
+     * @param string $fisvUploadIp
+     * @return FileSystem
+     */
+    public function setFisvUploadIp($fisvUploadIp)
+    {
+        $this->fisvUploadIp = $fisvUploadIp;
+
+        return $this;
+    }
+
+    /**
+     * Get fisvUploadIp
+     *
+     * @return string 
+     */
+    public function getFisvUploadIp()
+    {
+        return $this->fisvUploadIp;
     }
 
     /**
@@ -206,7 +326,7 @@ class FileSystem
     /**
      * Get fisvStatus
      *
-     * @return integer
+     * @return integer 
      */
     public function getFisvStatus()
     {
