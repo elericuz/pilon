@@ -4,52 +4,52 @@
             <li><a href="<?php echo $this->url('my-repo'); ?>">Home</a></li>
             <li class="current"><a href="#">Carpeta 1</a></li>
         </ul>
-    </div>
+        </div>
     <div class="row">
         <div class="small-12 medium-6 columns">
             <div class="row">
                 <div class="small-12 columns">
                     <div class="panel">
-                        <div class="row">
-                            <div class="small-12 columns strong">
-                                <strong>Nombre del Archivo</strong>
-                            </div>
-                            <div class="small-12 columns">
-                                nombre-del-archivo.xls
-                            </div>
+                    <div class="row">
+                        <div class="small-12 columns strong">
+                        <strong>Nombre del Archivo</strong>
                         </div>
-                        <br />
-                        <div class="row">
-                            <div class="small-12 columns">
-                                <a href="#">Descargar</a>
-                            </div>
+                        <div class="small-12 columns">
+                        <?php echo $file['real_name']; ?>
                         </div>
-                        <br />
-                        <div class="row">
-                            <div class="small-12 columns">
-                                <strong>Tamaño del Archivo</strong>
-                            </div>
-                            <div class="small-12 columns">
-                                10.45 Mb
-                            </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="small-12 columns">
+                            <a href="<?php echo $this->url('download-file', array('filename'=>$file['name'])); ?>">Descargar</a>
                         </div>
-                        <br />
-                        <div class="row">
-                            <div class="small-12 columns">
-                                <strong>Fecha de Subida</strong>
-                            </div>
-                            <div class="small-12 columns">
-                                13-02-2015
-                            </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="small-12 columns">
+                            <strong>Tamaño del Archivo</strong>
                         </div>
-                        <br />
-                        <div class="row">
-                            <div class="small-12 columns">
-                                <strong>Descripción del Archivo</strong>
-                            </div>
-                            <div class="small-12 columns">
-                                Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Maecenas lorem purus, blandit vitae lacinia eu, cursus a elit.
-                            </div>
+                        <div class="small-12 columns">
+                            <?php echo $file['size']; ?>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="small-12 columns">
+                            <strong>Fecha de Subida</strong>
+                        </div>
+                        <div class="small-12 columns">
+                            <?php echo $file['upload_date']; ?>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="small-12 columns">
+                            <strong>Descripción del Archivo</strong>
+                        </div>
+                        <div class="small-12 columns">
+                            <?php echo $file['description']; ?>
+                        </div>
                         </div>
                     </div>
                 </div>
@@ -66,7 +66,7 @@
                         <div id="deleteFileModal" class="reveal-modal tiny" data-reveal>
                             <br />
                             <p>¿Está seguro de borrar este archivo?</p>
-                                <button class="button tiny alert">Borrar</button>
+                            <button class="button tiny alert">Borrar</button>
                             <a class="close-reveal-modal">&#215;</a>
                         </div>
                     </div>

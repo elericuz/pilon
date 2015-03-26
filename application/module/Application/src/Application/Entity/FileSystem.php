@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * FileSystem
  *
  * @ORM\Table(name="file_system")
- * @ORM\Entity(repositoryClass="Application\Entity\Repository\FileSystemRepository")
+ * @ORM\Entity
  */
 class FileSystem
 {
