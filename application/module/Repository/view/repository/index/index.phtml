@@ -57,7 +57,7 @@
         <form>
             <div class="small-12 columns">
                 <div class="panel">
-                    <?php for($i=1; $i<=rand(1,5); $i++) { ?>
+                    <?php foreach($folders as $folder) { ?>
                     <div class="row list files <?php echo $this->cycle(array('row-1', 'row-2'))->next() ?>">
                         <div class="small-12 columns">
                             <input id="folder_<?php echo $folder['fsciId']; ?>" type="checkbox"><label for="folder_<?php echo $folder['fsciId']; ?>"><a href="<?php echo $this->url('my-repo', array('folder'=>$folder['fsciId'])); ?>"><?php echo $folder['fscvRealName']; ?></a></label>
@@ -82,7 +82,7 @@
         <form>
             <div class="small-12 columns">
                 <div class="panel">
-                    <?php for($i=1; $i<=rand(2,20); $i++) { ?>
+                    <?php foreach($files as $file) { ?>
                     <div class="row list files <?php echo $this->cycle(array('row-2', 'row-1'))->next() ?>">
                         <div class="small-8 large-5 columns">
                             <input id="file-<?php echo $file['fsciId']; ?>" type="checkbox">

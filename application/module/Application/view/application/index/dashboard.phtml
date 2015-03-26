@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="small-12 columns">
                     <div class="panel">
-                    <?php for($i=1; $i<=5; $i++) { ?>
+                    <?php foreach($this->files as $file) { ?>
                     <div class="row list files <?php echo $this->cycle(array('row-1', 'row-2'))->next() ?>">
                         <div class="small-12 columns"><a href="<?php echo $this->url('view-file', array('filename'=>$file['fisvName'])); ?>"><?php echo $file['fscvRealName']; ?></a></div>
                         <div class="small-4 medium-3 large-3 columns text-small"><?php echo $file['fscdUploadDate']->format('d-m-Y'); ?></div>
