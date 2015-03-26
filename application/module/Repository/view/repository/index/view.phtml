@@ -2,7 +2,14 @@
     <div class="row">
         <ul class="breadcrumbs">
             <li><a href="<?php echo $this->url('my-repo'); ?>">Home</a></li>
-            <li class="current"><a href="#">Carpeta 1</a></li>
+            <?php
+            $breadcrumb = $this->bc;
+            $last = array_pop($breadcrumb);
+            foreach($breadcrumb as $bc) {
+            ?>
+            <li><a href="<?php echo $this->url('my-repo', array('folder'=>$bc['fsciId'])); ?>"><?php echo $bc['fscvRealName']; ?></a></li>
+            <?php } ?>
+            <li class="current"><a><?php echo $last['fscvRealName']; ?></a></li>
         </ul>
         </div>
     <div class="row">

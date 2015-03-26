@@ -7,6 +7,7 @@ use Zend\Validator\NotEmpty;
 use Zend\Validator\File\NotExists;
 use Common\Classes\String;
 use Repository\Model\FileSystemRepository;
+use Repository\Classes\Breadcrumb;
 
 class IndexController extends MainController
 {
@@ -18,10 +19,14 @@ class IndexController extends MainController
         $folders = $fsc_obj->getFolders(1, $parent);
         $files = $fsc_obj->getFiles(1, $parent);
 
+        $bc_obj = new Breadcrumb($this->em);
+        $bc = $bc_obj->add($parent);
+
         $array = array(
             'folders' => $folders,
             'files' => $files,
-            'folder' => $parent
+            'folder' => $parent,
+            'bc' => $bc
         );
 
         return new ViewModel($array);
@@ -60,8 +65,12 @@ class IndexController extends MainController
 	        'description' => $result['fsctDescription']
 	    );
 
+        $bc_obj = new Breadcrumb($this->em);
+        $bc = $bc_obj->add($result['fsciId']);
+
 	    $array = array(
-	        'file' => $file
+	        'file' => $file,
+	        'bc' => $bc
 	    );
 
         return new ViewModel($array);
