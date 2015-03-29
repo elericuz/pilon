@@ -16,8 +16,8 @@ class IndexController extends MainController
         $parent = $this->params()->fromRoute('folder', 0);
 
         $fsc_obj = new FileSystemRepository($this->em);
-        $folders = $fsc_obj->getFolders(1, $parent);
-        $files = $fsc_obj->getFiles(1, $parent);
+        $folders = $fsc_obj->getFolders($this->clientId, $parent);
+        $files = $fsc_obj->getFiles($this->clientId, $parent);
 
         $bc_obj = new Breadcrumb($this->em);
         $bc = $bc_obj->add($parent);
@@ -26,7 +26,8 @@ class IndexController extends MainController
             'folders' => $folders,
             'files' => $files,
             'folder' => $parent,
-            'bc' => $bc
+            'bc' => $bc,
+            'currentFolder' => $parent
         );
 
         return new ViewModel($array);
@@ -42,7 +43,7 @@ class IndexController extends MainController
 
 	    $file_obj = new FileSystemRepository($this->em);
 
-	    $result = $file_obj->findFile(1, $filename);
+	    $result = $file_obj->findFile($this->clientId, $filename);
 
 	    if(!$notEmpty_obj->isValid($result))
 	        throw new \RuntimeException("Invalid filename given");

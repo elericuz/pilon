@@ -24,10 +24,13 @@ class IndexController extends MainController
     {
         $fsc_obj = new FileSystemRepository($this->em);
 
-        $files = $fsc_obj->getLastUploadedFiles(1);
+        $files = $fsc_obj->getLastUploadedFiles($this->clientId);
+
+        $downloads = $fsc_obj->getMostDownloadFiles($this->clientId);
 
         $array = array(
-            'files' => $files
+            'files' => $files,
+            'downloads' => $downloads
         );
 
         return new ViewModel($array);
