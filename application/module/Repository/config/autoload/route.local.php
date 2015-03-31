@@ -61,6 +61,26 @@ return array(
                     ),
                 ),
             ),
+            'delete-file' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/delete-file',
+                    'defaults' => array(
+                        'controller' => 'Repository\Controller\File',
+                        'action' => 'delete',
+                    ),
+                ),
+            ),
+            'delete-folder' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/delete-folder',
+                    'defaults' => array(
+                        'controller' => 'Repository\Controller\Folder',
+                        'action' => 'delete',
+                    ),
+                ),
+            ),
         ),
     ),
 );

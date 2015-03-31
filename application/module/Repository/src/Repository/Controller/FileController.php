@@ -6,6 +6,8 @@ use Zend\Validator\NotEmpty;
 use Zend\Validator\File\NotExists;
 use Application\Entity\FileSystem;
 use Application\Entity\FileSystemClient;
+use Application\Entity\FileSystemDownload;
+use Repository\Model\FileSystemRepository;
 
 /**
  * FileController
@@ -36,7 +38,7 @@ class FileController extends MainController
                     move_uploaded_file($file['tmp_name'], $destinationFile);
                 }
 
-                $Client_obj = $this->em->find('Application\Entity\Client', 1);
+                $Client_obj = $this->em->find('Application\Entity\Client', $this->clientId);
 
                 $FS_obj = new FileSystem();
                 $FS_obj->setFisiParentId(0)
@@ -65,6 +67,10 @@ class FileController extends MainController
                 return $this->redirect()->toRoute('my-repo', array('folder'=>$request->getPost('folder')));
             }
         }
+        else
+        {
+            return $this->redirect()->toRoute('dashboard');
+        }
     }
 
 	public function downloadAction()
@@ -82,10 +88,27 @@ class FileController extends MainController
 
 	    foreach($file_obj as $file)
 	    {
+	        $id = $file->getFisiId();
 	        $name = $file->getFisvRealName();
 	        $mime = $file->getFisvMimetype();
 	        $realFile = $file->getFisvName();
 	    }
+
+	    $FSC_obj = $this->em->getRepository('Application\Entity\FileSystemClient')->findOneBy(array('fisi'=>$id, 'clii'=>$this->clientId));
+
+        $fsciTotalDownload = $FSC_obj->getFsciTotalDownload()+1;
+
+	    $FSD_obj = new FileSystemDownload();
+	    $FSD_obj->setFsci($FSC_obj)
+	            ->setFsddDownloadDate(new \DateTime("now"))
+	            ->setFsdvDownloadIp($_SERVER['REMOTE_ADDR']);
+	    $this->em->persist($FSD_obj);
+
+	    $FSC_obj = $this->em->find('Application\Entity\FileSystemClient', $FSC_obj->getFsciId());
+	    $FSC_obj->setFsciTotalDownload($fsciTotalDownload);
+	    $this->em->persist($FSC_obj);
+
+	    $this->em->flush();
 
 	    $notExists_obj = new NotExists();
 
@@ -109,5 +132,35 @@ class FileController extends MainController
 	    $response->setHeaders($headers);
 
 	    return $response;
+	}
+
+	public function deleteAction()
+	{
+	    $request = $this->getRequest();
+	    if($request->isPost())
+	    {
+	        $FSR_obj = new FileSystemRepository($this->em);
+
+	        $children = $FSR_obj->getChildrenId($this->clientId, $request->getPost('folder'), 1);
+
+	        $FSC_obj = new FileSystemClient();
+	        $files = $request->getPost('files');
+	        foreach($files as $file)
+	        {
+	            if(in_array($file, $children))
+	            {
+	                $FSC_obj = $this->em->find('Application\Entity\FileSystemClient', $file);
+	                $FSC_obj->setFsciStatus(0);
+	                $this->em->persist($FSC_obj);
+	                $this->em->flush();
+	            }
+	        }
+
+	        return $this->redirect()->toRoute('my-repo', array('folder'=>$request->getPost('folder')));
+	    }
+	    else
+	    {
+	        return $this->redirect()->toRoute('dashboard');
+	    }
 	}
 }

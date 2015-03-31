@@ -16,6 +16,7 @@ use Zend\EventManager\EventManagerInterface;
 class MainController extends AbstractActionController
 {
     protected $em;
+    protected $clientId = 1;
 
     public function setEventManager(EventManagerInterface $events)
     {
