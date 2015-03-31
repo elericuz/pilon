@@ -17,6 +17,12 @@ class IndexController extends MainController
 {
     public function indexAction()
     {
+        $this->needLogin = false;
+
+        if ($this->getServiceLocator()->get('AuthService')->hasIdentity()){
+            return $this->redirect()->toRoute('dashboard');
+        }
+
         return new ViewModel();
     }
 

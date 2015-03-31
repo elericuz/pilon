@@ -64,10 +64,10 @@ class Client extends \Application\Entity\Client implements \Doctrine\ORM\Proxy\P
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', '' . "\0" . 'Application\\Entity\\Client' . "\0" . 'cliiId', '' . "\0" . 'Application\\Entity\\Client' . "\0" . 'clivName', '' . "\0" . 'Application\\Entity\\Client' . "\0" . 'clidCreationDate', '' . "\0" . 'Application\\Entity\\Client' . "\0" . 'cliiStatus');
+            return array('__isInitialized__', '' . "\0" . 'Application\\Entity\\Client' . "\0" . 'cliiId', '' . "\0" . 'Application\\Entity\\Client' . "\0" . 'cliiType', '' . "\0" . 'Application\\Entity\\Client' . "\0" . 'clivName', '' . "\0" . 'Application\\Entity\\Client' . "\0" . 'clidCreationDate', '' . "\0" . 'Application\\Entity\\Client' . "\0" . 'cliiStatus');
         }
 
-        return array('__isInitialized__', '' . "\0" . 'Application\\Entity\\Client' . "\0" . 'cliiId', '' . "\0" . 'Application\\Entity\\Client' . "\0" . 'clivName', '' . "\0" . 'Application\\Entity\\Client' . "\0" . 'clidCreationDate', '' . "\0" . 'Application\\Entity\\Client' . "\0" . 'cliiStatus');
+        return array('__isInitialized__', '' . "\0" . 'Application\\Entity\\Client' . "\0" . 'cliiId', '' . "\0" . 'Application\\Entity\\Client' . "\0" . 'cliiType', '' . "\0" . 'Application\\Entity\\Client' . "\0" . 'clivName', '' . "\0" . 'Application\\Entity\\Client' . "\0" . 'clidCreationDate', '' . "\0" . 'Application\\Entity\\Client' . "\0" . 'cliiStatus');
     }
 
     /**
@@ -186,6 +186,28 @@ class Client extends \Application\Entity\Client implements \Doctrine\ORM\Proxy\P
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCliiId', array());
 
         return parent::getCliiId();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setCliiType($cliiType)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCliiType', array($cliiType));
+
+        return parent::setCliiType($cliiType);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getCliiType()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCliiType', array());
+
+        return parent::getCliiType();
     }
 
     /**
