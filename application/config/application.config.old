@@ -10,7 +10,8 @@ return array(
         'Application',
         'Repository',
         'DoctrineModule',
-        'DoctrineORMModule'
+        'DoctrineORMModule',
+        'Common'
     ),
     'module_listener_options' => array(
         'module_paths' => array(

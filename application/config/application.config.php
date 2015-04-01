@@ -11,7 +11,8 @@ return array(
         'Repository',
         'DoctrineModule',
         'DoctrineORMModule',
-        'Common'
+        'Common',
+        'Security'
     ),
     'module_listener_options' => array(
         'module_paths' => array(

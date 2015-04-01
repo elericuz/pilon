@@ -22,6 +22,13 @@ class ClientUser
     private $cluiId;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="clui_type", type="integer", nullable=true)
+     */
+    private $cluiType = '0';
+
+    /**
      * @var string
      *
      * @ORM\Column(name="cluv_user", type="string", length=32, nullable=true)
@@ -69,6 +76,29 @@ class ClientUser
     public function getCluiId()
     {
         return $this->cluiId;
+    }
+
+    /**
+     * Set cluiType
+     *
+     * @param integer $cluiType
+     * @return ClientUser
+     */
+    public function setCluiType($cluiType)
+    {
+        $this->cluiType = $cluiType;
+
+        return $this;
+    }
+
+    /**
+     * Get cluiType
+     *
+     * @return integer 
+     */
+    public function getCluiType()
+    {
+        return $this->cluiType;
     }
 
     /**
