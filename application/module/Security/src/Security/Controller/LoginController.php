@@ -30,8 +30,8 @@ class LoginController extends MainController
             if(!$empty_obj->isValid($password) || !$password)
                 throw new \RuntimeException("La contraseña no es válida");
 
-            $password = Encrypt::encrypt($password, $email);
-            $email = md5($email);
+            $password = Encrypt::encrypt(trim($password), trim($email));
+            $email = md5(trim($email));
 
             $user_obj = $this->em->getRepository('Application\Entity\ClientUser')->findOneByCluvUser($email);
 
