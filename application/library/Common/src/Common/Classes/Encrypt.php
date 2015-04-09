@@ -3,13 +3,19 @@ namespace Common\Classes;
 
 class Encrypt
 {
-    static public function encrypt($password, $user)
+    static function encrypt($input, $user)
     {
         $key = self::getKey($user);
 
-        $hash = md5(base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, md5($key), $password, MCRYPT_MODE_ECB, mcrypt_create_iv(32))));
+        $td = mcrypt_module_open('des', '', 'ecb', '');
+        $iv = mcrypt_create_iv(mcrypt_enc_get_iv_size($td), MCRYPT_RAND);
 
-        return $hash;
+        mcrypt_generic_init($td, $key, $iv);
+        $data = mcrypt_generic($td, $input);
+        $data = base64_encode($data);
+        $data = md5($data);
+
+        return $data;
     }
 
     static private function getKey($string)
@@ -20,7 +26,7 @@ class Encrypt
             $string = substr($string, 0, strpos($string, "@"));
         }
         $string = md5($string);
-        $key = substr($string, 10, 20);
+        $key = substr($string, 12, 8);
 
         return $key;
     }
