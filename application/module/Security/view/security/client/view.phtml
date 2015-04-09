@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="small-12 columns">
                     <div class="panel" style="background-color: #FFF;">
-                        <form method="post" action="<?php echo $this->url('edit-client'); ?>">
+                        <form method="post" action="<?php echo $this->url('edit-client'); ?>" data-abide>
                             <input type="hidden" name="client-id" value="<?php echo $this->client['clii_id']; ?>">
                             <input type="hidden" name="user-id" value="<?php echo $this->user['clui_id']; ?>">
                             <fieldset>
@@ -22,8 +22,10 @@
                                     <input type="text" placeholder="Ingrese el correo electrónico del usuario del cliente" name="user-email" id="user-email" value="<?php echo $this->user['cluv_email']; ?>">
                                 </label>
                                 <label>
-                                    Correo Electrónico
-                                    <input type="password" placeholder="Ingrese el password del cliente" name="user-password" id="user-password">
+                                    Password
+                                    <small>obligatorio</small>
+                                    <input type="password" placeholder="Ingrese el password del cliente" name="user-password" id="user-password" required pattern="[a-zA-Z0-9]+">
+                                    <small class="error">Revise el password que ingresó</small
                                 </label>
                             </fieldset>
                             <button class="button tiny radius">Guardar</button>

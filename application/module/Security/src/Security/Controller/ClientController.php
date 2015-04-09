@@ -95,17 +95,17 @@ class ClientController extends MainController
                 throw new \RuntimeException("The email given is already in use. Try with another one.");
 
             $client_obj = new Client();
-            $client_obj->setClivName($request->getPost('client-name'))
+            $client_obj->setClivName(trim($request->getPost('client-name')))
                        ->setClidCreationDate(new \DateTime("now"));
             $this->em->persist($client_obj);
 
-            $pass = Encrypt::encrypt($request->getPost('client-password'), $request->getPost('client-user'));
+            $pass = Encrypt::encrypt(trim($request->getPost('client-password')), trim($request->getPost('client-user')));
 
             $user_obj = new ClientUser();
             $user_obj->setClii($client_obj)
-                     ->setCluvUser(md5($request->getPost('client-user')))
+                     ->setCluvUser(md5(trim($request->getPost('client-user'))))
                      ->setCluvPassword($pass)
-                     ->setCluvEmail($request->getPost('client-email'));
+                     ->setCluvEmail(trim($request->getPost('client-email')));
             $this->em->persist($user_obj);
 
             $this->em->flush();
@@ -131,17 +131,17 @@ class ClientController extends MainController
                 throw new \RuntimeException("The email given is already in use. Try with another one.");
 
             $client_obj = $this->em->find('Application\Entity\Client', $request->getPost('client-id', 0));
-            $client_obj->setClivName($request->getPost('client-name'));;
+            $client_obj->setClivName(trim($request->getPost('client-name')));
             $this->em->persist($client_obj);
 
             $user_obj = $this->em->find('Application\Entity\ClientUser', $request->getPost('user-id', 0));
 
             $user_obj->setClii($client_obj)
-                     ->setCluvUser(md5($request->getPost('user-email')))
-                     ->setCluvEmail($request->getPost('user-email'));
+                     ->setCluvUser(md5(trim($request->getPost('user-email'))))
+                     ->setCluvEmail(trim($request->getPost('user-email')));
 
             $storedPass = $user_obj->getCluvPassword();
-            $newPass = Encrypt::encrypt($request->getPost('user-password'), $request->getPost('user-email'));
+            $newPass = Encrypt::encrypt(trim($request->getPost('user-password')), trim($request->getPost('user-email')));
 
             if($storedPass!==$newPass)
             {
