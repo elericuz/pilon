@@ -10,8 +10,8 @@
 namespace Common\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
 use Zend\EventManager\EventManagerInterface;
+use Zend\View\Model\ViewModel;
 
 class MainController extends AbstractActionController
 {
@@ -24,6 +24,7 @@ class MainController extends AbstractActionController
     protected $clientType = 0;
     protected $needAdmin = 0;
     protected $clientName;
+    protected $clientAdmin;
 
     public function setEventManager(EventManagerInterface $events)
     {
@@ -52,10 +53,12 @@ class MainController extends AbstractActionController
         if ($this->getServiceLocator()->get('AuthService')->hasIdentity()){
             $client = $this->getServiceLocator()->get('AuthService')->getStorage()->read();
             $this->clientId = $client['clientId'];
+            $this->clientName = $client['clientName'];
             $this->userId = $client['userId'];
             $this->clientType = $client['clientType'];
             $this->userType = $client['userType'];
-            $this->layout()->_clientName = $client['clientName'];
+            $this->layout()->_clientName = $this->clientName;
+            $this->clientAdmin = $client['clientType']?1:0;
         }
     }
 

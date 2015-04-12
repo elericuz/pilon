@@ -38,7 +38,11 @@ class FileController extends MainController
                     move_uploaded_file($file['tmp_name'], $destinationFile);
                 }
 
-                $Client_obj = $this->em->find('Application\Entity\Client', $this->clientId);
+                $parent = $request->getPost('folder');
+
+                $fsc_obj = $this->em->find('Application\Entity\FileSystemClient', $parent);
+
+                $client_obj = $this->em->find('Application\Entity\Client', $fsc_obj->getClii()->getCliiId());
 
                 $FS_obj = new FileSystem();
                 $FS_obj->setFisiParentId(0)
@@ -53,9 +57,9 @@ class FileController extends MainController
 
                 $FSC_obj = new FileSystemClient();
                 $FSC_obj->setFsciParentId(0)
-                        ->setClii($Client_obj)
+                        ->setClii($client_obj)
                         ->setFisi($FS_obj)
-                        ->setFsciParentId($request->getPost('folder'))
+                        ->setFsciParentId($parent)
                         ->setFscvRealName(trim($file['name']))
                         ->setFscvFriendlyName(trim($file['name']))
                         ->setFsctDescription($request->getPost('file_description'))
@@ -76,9 +80,13 @@ class FileController extends MainController
 	public function downloadAction()
 	{
 	    $filename = $this->params()->fromRoute('filename', false);
+	    $folder = $this->params()->fromRoute('folder', false);
 
 	    $notEmpty_obj = new NotEmpty();
 	    if(!$notEmpty_obj->isValid($filename))
+	        throw new \RuntimeException("Invalid filename specified");
+
+	    if(!$notEmpty_obj->isValid($folder))
 	        throw new \RuntimeException("Invalid filename specified");
 
 	    $file_obj = $this->em->getRepository('Application\Entity\FileSystem')->findBy(array('fisvName'=>$filename, 'fisvStatus'=>1));
@@ -94,7 +102,15 @@ class FileController extends MainController
 	        $realFile = $file->getFisvName();
 	    }
 
-	    $FSC_obj = $this->em->getRepository('Application\Entity\FileSystemClient')->findOneBy(array('fisi'=>$id, 'clii'=>$this->clientId));
+	    $clientId = $this->clientId;
+	    if($this->clientAdmin)
+	    {
+	        $fsc_obj = $this->em->find('Application\Entity\FileSystemClient', $folder);
+	        if($notEmpty_obj->isValid($fsc_obj))
+	            $clientId = $fsc_obj->getClii()->getCliiId();
+	    }
+
+	    $FSC_obj = $this->em->getRepository('Application\Entity\FileSystemClient')->findOneBy(array('fsciParentId'=>$folder, 'fisi'=>$id, 'clii'=>$clientId));
 
         $fsciTotalDownload = $FSC_obj->getFsciTotalDownload()+1;
 
@@ -141,7 +157,17 @@ class FileController extends MainController
 	    {
 	        $FSR_obj = new FileSystemRepository($this->em);
 
-	        $children = $FSR_obj->getChildrenId($this->clientId, $request->getPost('folder'), 1);
+	        $notEmpty_obj = new NotEmpty();
+
+	        $clientId = $this->clientId;
+	        if($this->clientAdmin)
+	        {
+	            $fsc_obj = $this->em->find('Application\Entity\FileSystemClient', $request->getPost('folder'));
+	            if($notEmpty_obj->isValid($fsc_obj))
+	                $clientId = $fsc_obj->getClii()->getCliiId();
+	        }
+
+	        $children = $FSR_obj->getChildrenId($clientId, $request->getPost('folder'), 1);
 
 	        $FSC_obj = new FileSystemClient();
 	        $files = $request->getPost('files');

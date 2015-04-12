@@ -1,7 +1,7 @@
 <div class="small-12 columns">
     <div class="row">
         <ul class="breadcrumbs">
-            <li><a href="<?php echo $this->url('my-repo'); ?>">Home</a></li>
+            <li><a href="<?php echo $this->url('my-repo'); ?>">Inicio</a></li>
             <?php
             $breadcrumb = $this->bc;
             $last = array_pop($breadcrumb);
@@ -28,7 +28,7 @@
                     <br />
                     <div class="row">
                         <div class="small-12 columns">
-                            <a href="<?php echo $this->url('download-file', array('filename'=>$file['name'])); ?>">Descargar</a>
+                            <a href="<?php echo $this->url('download-file', array('folder'=>$file['folder'], 'filename'=>$file['name'])); ?>">Descargar</a>
                         </div>
                     </div>
                     <br />
@@ -69,6 +69,7 @@
                         <div class="row text-center show-for-medium-up">
                             <img alt="" src="/img/xls-300x300.png">
                         </div>
+                        <?php if($client['admin']) { ?>
                         <button class="button tiny alert" data-reveal-id="deleteFileModal">Borrar</button>
                         <div id="deleteFileModal" class="reveal-modal tiny" data-reveal>
                             <br />
@@ -76,6 +77,7 @@
                             <button class="button tiny alert">Borrar</button>
                             <a class="close-reveal-modal">&#215;</a>
                         </div>
+                        <?php } ?>
                     </div>
                 </div>
             </div>

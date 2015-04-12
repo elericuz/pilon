@@ -73,10 +73,11 @@ class FileSystemRepository extends EntityRepository
              ->from('Application\Entity\FileSystemClient', 'fsc')
              ->innerJoin('fsc.fisi', 'fs')
              ->distinct('fs.fisvName')
-             ->where('fsc.clii='.$client)
-             ->andWhere('fs.fisiType=0')
+             ->where('fs.fisiType=0')
              ->andWhere('fsc.fsciParentId='.$parent)
              ->andWhere('fsc.fsciStatus=1');
+        if($parent>0 && $client>1)
+            $query->andWhere('fsc.clii='.$client);
 
         $result = $query->getQuery()->getResult(Query::HYDRATE_ARRAY);
 
@@ -88,6 +89,7 @@ class FileSystemRepository extends EntityRepository
         $query = $this->em->createQueryBuilder();
         $query->select(array(
                 'fsc.fsciId',
+                'fsc.fsciParentId',
                 'fsc.fscvRealName',
                 'fsc.fscvFriendlyName',
                 'fsc.fsctDescription',
@@ -112,6 +114,7 @@ class FileSystemRepository extends EntityRepository
         $query = $this->em->createQueryBuilder();
         $query->select(array(
                 'fsc.fsciId',
+                'fsc.fsciParentId',
                 'fsc.fscvRealName',
                 'fsc.fscvFriendlyName',
                 'fsc.fsctDescription',
@@ -137,6 +140,7 @@ class FileSystemRepository extends EntityRepository
         $query = $this->em->createQueryBuilder();
         $query->select(array(
                 'fsc.fsciId',
+                'fsc.fsciParentId',
                 'fs.fisiType'))
              ->from('Application\Entity\FileSystemClient', 'fsc')
              ->innerJoin('fsc.fisi', 'fs')

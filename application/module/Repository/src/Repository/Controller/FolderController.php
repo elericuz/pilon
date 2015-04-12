@@ -57,7 +57,17 @@ class FolderController extends MainController
 	    {
 	        $FSR_obj = new FileSystemRepository($this->em);
 
-	        $this->deleteAllChildren(array($request->getPost('folder')), $FSR_obj);
+	        $notEmpty_obj = new NotEmpty();
+
+	        $clientId = $this->clientId;
+	        if($this->clientAdmin)
+	        {
+	            $fsc_obj = $this->em->find('Application\Entity\FileSystemClient', $request->getPost('folder'));
+	            if($notEmpty_obj->isValid($fsc_obj))
+	                $clientId = $fsc_obj->getClii()->getCliiId();
+	        }
+
+	        $this->deleteAllChildren(array($request->getPost('folder')), $clientId, $FSR_obj);
 
 	        return $this->redirect()->toRoute('my-repo', array('folder'=>$request->getPost('folder')));
 	    }
@@ -67,16 +77,16 @@ class FolderController extends MainController
 	    }
 	}
 
-	protected function deleteAllChildren($folders, &$FSR_obj)
+	protected function deleteAllChildren($folders, $clientId, &$FSR_obj)
 	{
 	    foreach($folders as $child)
 	    {
-	        $folderChildren = $FSR_obj->getChildrenId($this->clientId, $child, 0);
+	        $folderChildren = $FSR_obj->getChildrenId($clientId, $child, 0);
 	        if(!empty($folderChildren))
 	        {
 	            foreach($folderChildren as $fc)
 	            {
-	                $files = $FSR_obj->getChildrenId($this->clientId, $fc, 1);
+	                $files = $FSR_obj->getChildrenId($clientId, $fc, 1);
 	                foreach($files as $file)
 	                {
 	                    $FSC_obj = $this->em->find('Application\Entity\FileSystemClient', $file);
@@ -89,7 +99,7 @@ class FolderController extends MainController
 	                $this->em->persist($FSC_obj);
 	                $this->em->flush();
 	            }
-	            $this->deleteAllChildren($folderChildren, $FSR_obj);
+	            $this->deleteAllChildren($folderChildren, $clientId, $FSR_obj);
 	        }
 	    }
 

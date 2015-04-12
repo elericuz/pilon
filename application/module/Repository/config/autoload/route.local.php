@@ -18,9 +18,10 @@ return array(
             'view-file' => array(
                 'type' => 'segment',
                 'options' => array(
-                    'route' => '/my-repo/view[/:filename]',
+                    'route' => '/my-repo/view[/:folder][/:filename]',
                     'constraints' => array(
                         'filename'  => '[a-zA-Z0-9]+',
+                        'folder' => '[0-9]+'
                     ),
                     'defaults' => array(
                         'controller' => 'Repository\Controller\Index',
@@ -51,9 +52,10 @@ return array(
             'download-file' => array(
                 'type' => 'segment',
                 'options' => array(
-                    'route' => '/download-file[/:filename]',
+                    'route' => '/download-file[/:folder][/:filename]',
                     'constraints' => array(
                         'filename' => '[a-zA-Z0-9]+',
+                        'folder' => '[0-9]+'
                     ),
                     'defaults' => array(
                         'controller' => 'Repository\Controller\File',
