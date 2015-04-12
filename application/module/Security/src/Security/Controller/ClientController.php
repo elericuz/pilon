@@ -7,6 +7,8 @@ use Application\Entity\Client;
 use Application\Entity\ClientUser;
 use Common\Classes\Encrypt;
 use Zend\Validator\NotEmpty;
+use Application\Entity\FileSystem;
+use Application\Entity\FileSystemClient;
 
 /**
  * ClientController
@@ -107,6 +109,25 @@ class ClientController extends MainController
                      ->setCluvPassword($pass)
                      ->setCluvEmail(trim($request->getPost('client-email')));
             $this->em->persist($user_obj);
+
+            $FS_obj = new FileSystem();
+            $FS_obj->setFisiParentId(0);
+            $FS_obj->setFisiType(0);
+            $FS_obj->setFisvName(md5($request->getPost('client-name')));
+            $FS_obj->setFisvRealName(trim($request->getPost('client-name')));
+            $FS_obj->setFisdUploadDate(new \DateTime("now"));
+            $FS_obj->setFisvUploadIp($_SERVER['REMOTE_ADDR']);
+            $this->em->persist($FS_obj);
+
+            $FSC_obj = new FileSystemClient();
+            $FSC_obj->setFsciParentId(0)
+                    ->setClii($client_obj)
+                    ->setFisi($FS_obj)
+                    ->setFsciParentId(0)
+                    ->setFscvRealName(trim($request->getPost('client-name')))
+                    ->setFscvFriendlyName(trim($request->getPost('client-name')))
+                    ->setFscdUploadDate(new \DateTime("now"));
+            $this->em->persist($FSC_obj);
 
             $this->em->flush();
 
