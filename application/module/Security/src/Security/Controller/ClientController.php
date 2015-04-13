@@ -105,9 +105,8 @@ class ClientController extends MainController
 
             $user_obj = new ClientUser();
             $user_obj->setClii($client_obj)
-                     ->setCluvUser(md5(trim($request->getPost('client-user'))))
-                     ->setCluvPassword($pass)
-                     ->setCluvEmail(trim($request->getPost('client-email')));
+                     ->setCluvUser(md5(trim($request->getPost('user-email'))))
+                     ->setCluvEmail(trim($request->getPost('user-email')));
             $this->em->persist($user_obj);
 
             $FS_obj = new FileSystem();
