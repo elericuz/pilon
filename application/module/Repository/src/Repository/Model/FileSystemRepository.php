@@ -76,8 +76,8 @@ class FileSystemRepository extends EntityRepository
              ->where('fs.fisiType=0')
              ->andWhere('fsc.fsciParentId='.$parent)
              ->andWhere('fsc.fsciStatus=1');
-        if($parent>0 && $client>1)
-            $query->andWhere('fsc.clii='.$client);
+//        if($parent>0 && $client>1)
+  //          $query->andWhere('fsc.clii='.$client);
 
         $result = $query->getQuery()->getResult(Query::HYDRATE_ARRAY);
 
