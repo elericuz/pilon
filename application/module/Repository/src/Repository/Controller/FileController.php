@@ -27,49 +27,68 @@ class FileController extends MainController
             $notEmpty_obj = new NotEmpty();
             $notExists_obj = new NotExists();
 
-            $file = $_FILES['file'];
+            $files_tmp = $_FILES['files'];
 
-            if(!$notExists_obj->isValid($file['tmp_name']) && $notEmpty_obj->isValid(trim($file['name'])))
+            $files = array();
+            foreach($files_tmp as $key => $value)
             {
-                $destinationFile = REPO_PATH.md5($file['tmp_name']);
-
-                if($notExists_obj->isValid($destinationFile))
+                foreach($value as $number => $file)
                 {
-                    move_uploaded_file($file['tmp_name'], $destinationFile);
+                    $files[$number][$key] = $file;
                 }
-
-                $parent = $request->getPost('folder');
-
-                $fsc_obj = $this->em->find('Application\Entity\FileSystemClient', $parent);
-
-                $client_obj = $this->em->find('Application\Entity\Client', $fsc_obj->getClii()->getCliiId());
-
-                $FS_obj = new FileSystem();
-                $FS_obj->setFisiParentId(0)
-                       ->setFisiType(1)
-                       ->setFisvName(md5($file['tmp_name']))
-                       ->setFisvRealName(trim($file['name']))
-                       ->setFisvMimetype($file['type'])
-                       ->setFistDescription($request->getPost('file_description'))
-                       ->setFisdUploadDate(new \DateTime("now"))
-                       ->setFisvUploadIp($_SERVER['REMOTE_ADDR']);
-                $this->em->persist($FS_obj);
-
-                $FSC_obj = new FileSystemClient();
-                $FSC_obj->setFsciParentId(0)
-                        ->setClii($client_obj)
-                        ->setFisi($FS_obj)
-                        ->setFsciParentId($parent)
-                        ->setFscvRealName(trim($file['name']))
-                        ->setFscvFriendlyName(trim($file['name']))
-                        ->setFsctDescription($request->getPost('file_description'))
-                        ->setFscdUploadDate(new \DateTime("now"));
-                $this->em->persist($FSC_obj);
-
-                $this->em->flush();
-
-                return $this->redirect()->toRoute('my-repo', array('folder'=>$request->getPost('folder')));
             }
+
+            $data = array();
+
+            foreach($files as $file)
+            {
+                if(!$notExists_obj->isValid($file['tmp_name']) && $notEmpty_obj->isValid(trim($file['name'])))
+                {
+                    $destinationFile = REPO_PATH.md5($file['tmp_name']);
+
+                    if($notExists_obj->isValid($destinationFile))
+                    {
+                        move_uploaded_file($file['tmp_name'], $destinationFile);
+                    }
+
+                    $parent = $request->getPost('folder');
+
+                    $fsc_obj = $this->em->find('Application\Entity\FileSystemClient', $parent);
+
+                    $client_obj = $this->em->find('Application\Entity\Client', $fsc_obj->getClii()->getCliiId());
+
+                    $FS_obj = new FileSystem();
+                    $FS_obj->setFisiParentId(0)
+                           ->setFisiType(1)
+                           ->setFisvName(md5($file['tmp_name']))
+                           ->setFisvRealName(trim($file['name']))
+                           ->setFisvMimetype($file['type'])
+                           ->setFistDescription($request->getPost('file_description'))
+                           ->setFisdUploadDate(new \DateTime("now"))
+                           ->setFisvUploadIp($_SERVER['REMOTE_ADDR']);
+                    $this->em->persist($FS_obj);
+
+                    $FSC_obj = new FileSystemClient();
+                    $FSC_obj->setFsciParentId(0)
+                            ->setClii($client_obj)
+                            ->setFisi($FS_obj)
+                            ->setFsciParentId($parent)
+                            ->setFscvRealName(trim($file['name']))
+                            ->setFscvFriendlyName(trim($file['name']))
+                            ->setFsctDescription($request->getPost('file_description'))
+                            ->setFscdUploadDate(new \DateTime("now"));
+                    $this->em->persist($FSC_obj);
+
+                    $this->em->flush();
+
+                    $data[] = array("file"=>$file['tmp_name'], "name"=>trim($file['name']), "type"=>$file['type']);
+                }
+            }
+
+            echo json_encode($data);
+            exit;
+
+            //return $this->redirect()->toRoute('my-repo', array('folder'=>$request->getPost('folder')));
         }
         else
         {

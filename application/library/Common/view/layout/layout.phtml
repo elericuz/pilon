@@ -18,10 +18,11 @@
         ?>
         <!-- Scripts -->
         <?php
-        $this->headScript()
+        $this->headScript()->setAllowArbitraryAttributes(true)
              ->prependFile($this->basePath('vendor/foundation/foundation/js/vendor/modernizr.js'))
              ->appendFile($this->basePath('vendor/foundation/foundation/js/vendor/jquery.js'))
-             ->appendFile($this->basePath('vendor/foundation/foundation/js/foundation.min.js'));
+             ->appendFile($this->basePath('vendor/foundation/foundation/js/foundation.min.js'))
+             ->prependFile($this->basepath('vendor/dojo/dojo/dojo.js'), 'text/javascript', array('data-dojo-config'=>'isDebug: true, async: true, parseOnLoad: true'));
         ?>
     </head>
     <body>
