@@ -39,6 +39,8 @@ class IndexController extends MainController
 
         $fsc_obj = new FileSystemRepository($this->em);
         $folders = $fsc_obj->getFolders($clientId, $parent);
+//print_r($folders); echo $clientId; echo $parent;
+//die();
         $currentFolderInfo = $this->em->find('Application\Entity\FileSystemClient', $parent);
         $files = $fsc_obj->getFiles($clientId, $parent);
 
