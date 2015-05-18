@@ -51,13 +51,17 @@
 					<p>
 						Subirá archivos dentro de <em><?php echo isset($currentFolderInfo)?$currentFolderInfo->getFscvRealName():$client['name']; ?></em>
 					</p>
+					<div data-dojo-id="modalStandby" data-dojo-type="dojox.widget.Standby" data-dojo-props="target:'modalUpload', color:'#008cba'"></div>
 					<div class="small-12 columns">
-						<label>Archivo <input type="file" name="file" />
-						</label> <label>Descripción del Archivo <textarea
-								placeholder="Escriba una descrición del archivo que subirá"
-								name="file_description"></textarea>
-						</label>
-						<button class="button tiny" type="submit">Subir</button>
+					    <div id="modalUpload">
+    						<div name="file" multiple="true"
+    							data-dojo-type="dojox.form.Uploader"
+    							data-dojo-id="uploader1" style="min-height: 150px; width: 150px"></div>
+    						<label>Descripción del Archivo
+    						  <textarea name="file_description"></textarea>
+    						</label>
+    						<button class="button tiny" type="submit">Subir</button>
+						</div>
 					</div>
 					<a class="close-reveal-modal">&#215;</a>
 				</form>
@@ -166,3 +170,30 @@
 		<?php } ?>
 	</div>
 </div>
+<?php
+$script = '
+require([
+        "dojo",
+		"dojo/parser",
+		"dojox/form/Uploader",
+        "dojox/widget/Standby"
+	], function(dojo, parser, Uploader, Standby){
+		dojo.ready(function(){
+            dojo.parser;
+            document.body.appendChild(modalStandby.domNode);
+            dojo.connect(uploader1, "onChange", function(){
+                console.debug(uploader1.getFileList());
+            });
+            dojo.connect(uploader1, "onProgress", function(){
+                modalStandby.show();
+            });
+			dojo.connect(uploader1, "onComplete", function(){
+				window.location.reload();
+			})
+        });
+	});
+';
+
+$this->headScript()
+     ->appendScript($script, 'text/javascript');
+?>
