@@ -13,11 +13,36 @@ class IndexController extends MainController
 {
     public function indexAction()
     {
-        $parent = $this->params()->fromRoute('folder', 0);
+        $parent = $this->params()->fromRoute('folder', false);;
+
+        $empty_obj = new NotEmpty();
+
+        if(!$parent)
+        {
+            if(!$this->clientAdmin)
+            {
+                $parent_obj = $this->em->getRepository('Application\Entity\FileSystemClient')->findOneBy(array('clii'=>$this->clientId, 'fsciParentId'=>0));
+                if($empty_obj->isValid($parent_obj))
+                    $parent = $parent_obj->getFsciId();
+            } else {
+                $parent = 0;
+            }
+        }
+
+        $clientId = $this->clientId;
+        if($this->clientAdmin)
+        {
+            $fsc_obj = $this->em->find('Application\Entity\FileSystemClient', $parent);
+            if($empty_obj->isValid($fsc_obj))
+                $clientId = $fsc_obj->getClii()->getCliiId();
+        }
 
         $fsc_obj = new FileSystemRepository($this->em);
-        $folders = $fsc_obj->getFolders(1, $parent);
-        $files = $fsc_obj->getFiles(1, $parent);
+        $folders = $fsc_obj->getFolders($clientId, $parent);
+//print_r($folders); echo $clientId; echo $parent;
+//die();
+        $currentFolderInfo = $this->em->find('Application\Entity\FileSystemClient', $parent);
+        $files = $fsc_obj->getFiles($clientId, $parent);
 
         $bc_obj = new Breadcrumb($this->em);
         $bc = $bc_obj->add($parent);
@@ -26,7 +51,15 @@ class IndexController extends MainController
             'folders' => $folders,
             'files' => $files,
             'folder' => $parent,
-            'bc' => $bc
+            'bc' => $bc,
+            'currentFolder' => $parent,
+            'currentFolderInfo' => ($empty_obj->isValid($currentFolderInfo))?$currentFolderInfo:null,
+            'client' => array(
+                'name' => $this->clientName,
+                'id' => $this->clientId,
+                'type' => $this->clientType,
+                'admin' => $this->clientAdmin
+            )
         );
 
         return new ViewModel($array);
@@ -35,14 +68,26 @@ class IndexController extends MainController
     public function viewAction()
     {
         $filename = $this->params()->fromRoute('filename', false);
+        $folder = $this->params()->fromRoute('folder', false);
 
 	    $notEmpty_obj = new NotEmpty();
 	    if(!$notEmpty_obj->isValid($filename))
 	        throw new \RuntimeException("Invalid filename specified");
 
+	    if(!$notEmpty_obj->isValid($folder))
+	        throw new \RuntimeException("Invalid filename specified");
+
 	    $file_obj = new FileSystemRepository($this->em);
 
-	    $result = $file_obj->findFile(1, $filename);
+	    $clientId = $this->clientId;
+	    if($this->clientAdmin)
+	    {
+	        $fsc_obj = $this->em->find('Application\Entity\FileSystemClient', $folder);
+	        if($notEmpty_obj->isValid($fsc_obj))
+	            $clientId = $fsc_obj->getClii()->getCliiId();
+	    }
+
+	    $result = $file_obj->findFile($clientId, $filename);
 
 	    if(!$notEmpty_obj->isValid($result))
 	        throw new \RuntimeException("Invalid filename given");
@@ -57,6 +102,7 @@ class IndexController extends MainController
 	    }
 
 	    $file = array(
+	        'folder' => $result['fsciParentId'],
 	        'name' => $result['fisvName'],
 	        'real_name' => $result['fscvRealName'],
 	        'mimetype' => $result['fisvMimetype'],
@@ -70,7 +116,13 @@ class IndexController extends MainController
 
 	    $array = array(
 	        'file' => $file,
-	        'bc' => $bc
+	        'bc' => $bc,
+	        'client' => array(
+	            'name' => $this->clientName,
+	            'id' => $this->clientId,
+	            'type' => $this->clientType,
+	            'admin' => $this->clientAdmin
+	        )
 	    );
 
         return new ViewModel($array);

@@ -3,16 +3,16 @@
         <div class="row text-center">
             <h1>Cruz Verde</h1>
         </div>
-        <form action="/dashboard" method="post">
+        <form action="<?php echo $this->url('login'); ?>" method="post">
             <div class="row collapse">
                 <div class="row">
                     <div class="small-12 medium-12 columns">
-                        <input type="text" name="username" placeholder="Username" />
+                        <input type="text" name="user-email" placeholder="Email" />
                     </div>
                 </div>
                 <div class="row">
                     <div class="small-12 medium-12 columns">
-                        <input type="password" name="password" placeholder="Password" />
+                        <input type="password" name="user-password" placeholder="Password" />
                     </div>
                 </div>
                 <div class="row">
@@ -20,12 +20,7 @@
                         <button class="button radius tiny expand">Entrar</button>
                     </div>
                     <div class="small-6 medium-6 small-centered medium-uncentered columns inline">
-                        <input id="rememberme" type="checkbox"><label for="rememberme">Recordarme</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="small-12 medium-12 small-centered medium-uncentered columns">
-                        <a href="#">Olvidé la Contraseña</a>
+                        &nbsp;
                     </div>
                 </div>
             </div>

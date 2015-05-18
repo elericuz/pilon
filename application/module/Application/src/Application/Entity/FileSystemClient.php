@@ -33,7 +33,7 @@ class FileSystemClient
      *
      * @ORM\Column(name="fscv_real_name", type="string", length=255, nullable=false)
      */
-    private $fscvRealName = '';
+    private $fscvRealName;
 
     /**
      * @var string
@@ -55,6 +55,13 @@ class FileSystemClient
      * @ORM\Column(name="fscd_upload_date", type="datetime", nullable=true)
      */
     private $fscdUploadDate;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="fsci_total_download", type="integer", nullable=true)
+     */
+    private $fsciTotalDownload = '0';
 
     /**
      * @var integer
@@ -208,6 +215,29 @@ class FileSystemClient
     public function getFscdUploadDate()
     {
         return $this->fscdUploadDate;
+    }
+
+    /**
+     * Set fsciTotalDownload
+     *
+     * @param integer $fsciTotalDownload
+     * @return FileSystemClient
+     */
+    public function setFsciTotalDownload($fsciTotalDownload)
+    {
+        $this->fsciTotalDownload = $fsciTotalDownload;
+
+        return $this;
+    }
+
+    /**
+     * Get fsciTotalDownload
+     *
+     * @return integer 
+     */
+    public function getFsciTotalDownload()
+    {
+        return $this->fsciTotalDownload;
     }
 
     /**

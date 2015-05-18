@@ -18,9 +18,10 @@ return array(
             'view-file' => array(
                 'type' => 'segment',
                 'options' => array(
-                    'route' => '/my-repo/view[/:filename]',
+                    'route' => '/my-repo/view[/:folder][/:filename]',
                     'constraints' => array(
                         'filename'  => '[a-zA-Z0-9]+',
+                        'folder' => '[0-9]+'
                     ),
                     'defaults' => array(
                         'controller' => 'Repository\Controller\Index',
@@ -51,13 +52,34 @@ return array(
             'download-file' => array(
                 'type' => 'segment',
                 'options' => array(
-                    'route' => '/download-file[/:filename]',
+                    'route' => '/download-file[/:folder][/:filename]',
                     'constraints' => array(
                         'filename' => '[a-zA-Z0-9]+',
+                        'folder' => '[0-9]+'
                     ),
                     'defaults' => array(
                         'controller' => 'Repository\Controller\File',
                         'action' => 'download',
+                    ),
+                ),
+            ),
+            'delete-file' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/delete-file',
+                    'defaults' => array(
+                        'controller' => 'Repository\Controller\File',
+                        'action' => 'delete',
+                    ),
+                ),
+            ),
+            'delete-folder' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/delete-folder',
+                    'defaults' => array(
+                        'controller' => 'Repository\Controller\Folder',
+                        'action' => 'delete',
                     ),
                 ),
             ),

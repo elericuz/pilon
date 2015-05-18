@@ -13,13 +13,10 @@
         <ul class="right">
             <li class="divider"></li>
             <li class="has-dropdown">
-                <a href="#">Hola</a>
+                <a href="#">Hola <?php echo $this->layout()->_clientName; ?></a>
                 <ul class="dropdown">
                     <li>
-                        <a href="#">Mi cuenta</a>
-                    </li>
-                    <li>
-                        <a href="<?php echo $this->url('home'); ?>">Salir</a>
+                        <a href="<?php echo $this->url('logout'); ?>">Salir</a>
                     </li>
                 </ul>
             </li>
@@ -31,13 +28,19 @@
         <ul class="left">
             <li class="divider"></li>
             <li>
-                <a href="<?php echo $this->url('dashboard'); ?>">Dashboard</a>
+                <a href="<?php echo $this->url('dashboard'); ?>">Inicio</a>
             </li>
             <li class="divider"></li>
             <li>
                 <a href="<?php echo $this->url('my-repo'); ?>">Repositorio</a>
             </li>
             <li class="divider"></li>
+            <?php if($this->layout()->_clientZone) { ?>
+            <li>
+                <a href="<?php echo $this->url('clients'); ?>">Clientes</a>
+            </li>
+            <li class="divider"></li>
+            <?php } ?>
         </ul>
     </section>
 </nav>

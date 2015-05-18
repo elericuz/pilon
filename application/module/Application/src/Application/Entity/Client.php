@@ -22,6 +22,13 @@ class Client
     private $cliiId;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="clii_type", type="integer", nullable=true)
+     */
+    private $cliiType = '0';
+
+    /**
      * @var string
      *
      * @ORM\Column(name="cliv_name", type="string", length=255, nullable=true)
@@ -52,6 +59,29 @@ class Client
     public function getCliiId()
     {
         return $this->cliiId;
+    }
+
+    /**
+     * Set cliiType
+     *
+     * @param integer $cliiType
+     * @return Client
+     */
+    public function setCliiType($cliiType)
+    {
+        $this->cliiType = $cliiType;
+
+        return $this;
+    }
+
+    /**
+     * Get cliiType
+     *
+     * @return integer 
+     */
+    public function getCliiType()
+    {
+        return $this->cliiType;
     }
 
     /**

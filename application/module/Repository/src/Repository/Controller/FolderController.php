@@ -6,6 +6,7 @@ use Common\Controller\MainController;
 use Application\Entity\FileSystem;
 use Application\Entity\FileSystemClient;
 use Zend\Validator\NotEmpty;
+use Repository\Model\FileSystemRepository;
 
 /**
  * FolderController
@@ -22,7 +23,7 @@ class FolderController extends MainController
         $request = $this->getRequest();
         if($request->isPost())
         {
-            $Client_obj = $this->em->find('Application\Entity\Client', 1);
+            $Client_obj = $this->em->find('Application\Entity\Client', $this->clientId);
 
             $FS_obj = new FileSystem();
             $FS_obj->setFisiParentId(0);
@@ -48,4 +49,59 @@ class FolderController extends MainController
 
         return $this->redirect()->toRoute('my-repo', array('folder'=>$request->getPost('folder')));
     }
+
+	public function deleteAction()
+	{
+	    $request = $this->getRequest();
+	    if($request->isPost())
+	    {
+	        $FSR_obj = new FileSystemRepository($this->em);
+
+	        $notEmpty_obj = new NotEmpty();
+
+	        $clientId = $this->clientId;
+	        if($this->clientAdmin)
+	        {
+	            $fsc_obj = $this->em->find('Application\Entity\FileSystemClient', $request->getPost('folder'));
+	            if($notEmpty_obj->isValid($fsc_obj))
+	                $clientId = $fsc_obj->getClii()->getCliiId();
+	        }
+
+	        $this->deleteAllChildren(array($request->getPost('folder')), $clientId, $FSR_obj);
+
+	        return $this->redirect()->toRoute('my-repo', array('folder'=>$request->getPost('folder')));
+	    }
+	    else
+	    {
+	        return $this->redirect()->toRoute('dashboard');
+	    }
+	}
+
+	protected function deleteAllChildren($folders, $clientId, &$FSR_obj)
+	{
+	    foreach($folders as $child)
+	    {
+	        $folderChildren = $FSR_obj->getChildrenId($clientId, $child, 0);
+	        if(!empty($folderChildren))
+	        {
+	            foreach($folderChildren as $fc)
+	            {
+	                $files = $FSR_obj->getChildrenId($clientId, $fc, 1);
+	                foreach($files as $file)
+	                {
+	                    $FSC_obj = $this->em->find('Application\Entity\FileSystemClient', $file);
+	                    $FSC_obj->setFsciStatus(0);
+	                    $this->em->persist($FSC_obj);
+	                    $this->em->flush();
+	                }
+	                $FSC_obj = $this->em->find('Application\Entity\FileSystemClient', $fc);
+	                $FSC_obj->setFsciStatus(0);
+	                $this->em->persist($FSC_obj);
+	                $this->em->flush();
+	            }
+	            $this->deleteAllChildren($folderChildren, $clientId, $FSR_obj);
+	        }
+	    }
+
+	}
 }
