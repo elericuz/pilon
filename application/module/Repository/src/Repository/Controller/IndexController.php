@@ -39,8 +39,20 @@ class IndexController extends MainController
 
         $fsc_obj = new FileSystemRepository($this->em);
         $folders = $fsc_obj->getFolders($clientId, $parent);
-//print_r($folders); echo $clientId; echo $parent;
-//die();
+        foreach($folders as $key => $folder)
+        {
+            $totalFolder = $fsc_obj->countFolders($folder['fsciId']);
+            $totalFolder = array_shift($totalFolder);
+            $totalFolder = array_shift($totalFolder);
+
+            $totalFiles = $fsc_obj->countFiles($folder['fsciId']);
+            $totalFiles = array_shift($totalFiles);
+            $totalFiles = array_shift($totalFiles);
+
+            $folders[$key]['total']['folder'] = $totalFolder;
+            $folders[$key]['total']['files'] = $totalFiles;
+        }
+
         $currentFolderInfo = $this->em->find('Application\Entity\FileSystemClient', $parent);
         $files = $fsc_obj->getFiles($clientId, $parent);
 
