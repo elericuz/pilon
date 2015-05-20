@@ -10,12 +10,21 @@
 namespace Common\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
 use Zend\EventManager\EventManagerInterface;
+use Zend\View\Model\ViewModel;
 
 class MainController extends AbstractActionController
 {
     protected $em;
+    protected $clientId = 0;
+    protected $userId = 0;
+    protected $storage;
+    protected $needLogin = true;
+    protected $userType = 0;
+    protected $clientType = 0;
+    protected $needAdmin = 0;
+    protected $clientName;
+    protected $clientAdmin;
 
     public function setEventManager(EventManagerInterface $events)
     {
@@ -41,11 +50,34 @@ class MainController extends AbstractActionController
 
     private function preDispath()
     {
-
+        if ($this->getServiceLocator()->get('AuthService')->hasIdentity()){
+            $client = $this->getServiceLocator()->get('AuthService')->getStorage()->read();
+            $this->clientId = $client['clientId'];
+            $this->clientName = $client['clientName'];
+            $this->userId = $client['userId'];
+            $this->clientType = $client['clientType'];
+            $this->userType = $client['userType'];
+            $this->layout()->_clientName = $this->clientName;
+            $this->clientAdmin = $client['clientType']?1:0;
+        }
     }
 
     private function postDispatch()
     {
+        if($this->needLogin && !$this->getServiceLocator()->get('AuthService')->hasIdentity())
+            return $this->redirect()->toRoute('home');
 
+        if($this->userType && $this->clientType)
+            $this->layout()->_clientZone = true;
+
+        if($this->needAdmin && !($this->clientType && $this->userType))
+            return $this->redirect()->toRoute('home');
+    }
+
+    public function getSessionStorage()
+    {
+        $this->storage = $this->getServiceLocator()->get('Security\Model\UserStorage');
+
+        return $this->storage;
     }
 }

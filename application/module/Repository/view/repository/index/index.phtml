@@ -1,109 +1,191 @@
 <div class="small-12 columns">
-    <div class="row">
-        <ul class="breadcrumbs">
-            <li><a href="<?php echo $this->url('my-repo'); ?>">Home</a></li>
+	<div class="row">
+		<ul class="breadcrumbs">
+			<li><a href="<?php echo $this->url('my-repo'); ?>">Inicio</a></li>
             <?php
             $breadcrumb = $this->bc;
             $last = array_pop($breadcrumb);
-            foreach($breadcrumb as $bc) {
-            ?>
-            <li><a href="<?php echo $this->url('my-repo', array('folder'=>$bc['fsciId'])); ?>"><?php echo $bc['fscvRealName']; ?></a></li>
+            foreach ($breadcrumb as $bc) {
+                ?>
+            <li><a
+				href="<?php echo $this->url('my-repo', array('folder'=>$bc['fsciId'])); ?>"><?php echo $bc['fscvRealName']; ?></a></li>
             <?php } ?>
-            <li class="current"><a href="<?php echo $this->url('my-repo', array('folder'=>$last['fsciId'])); ?>"><?php echo $last['fscvRealName']; ?></a></li>
-        </ul>
-    </div>
-    <div class="row">
-        <div class="small-6 medium-2 columns">
-            <a href="#" class="button radius tiny expand" data-reveal-id="createFolderModal">Crear Carpeta</a>
-            <div id="createFolderModal" class="reveal-modal tiny" data-reveal>
-                <br />
-                <form action="<?php echo $this->url('create-folder'); ?>" method="post">
-                    <input type="hidden" name="folder" value="<?php echo $this->folder; ?>">
-                    <p>Creará un carpeta nueva dentro de <strong><em>carpeta 1</em></strong></p>
-                    <div class="small-12 columns">
-                        <label>Nombre de la nueva carpeta
-                            <input type="text" name="folder_name" placeholder="escriba un nombre para la nueva carpeta" />
-                        </label>
-                        <button class="button tiny" type="submit">Crear</button>
-                    </div>
-                    <a class="close-reveal-modal">&#215;</a>
-                </form>
-            </div>
-        </div>
-        <div class="small-6 medium-10 columns">
-            <a href="#" class="button radius tiny" data-reveal-id="uploadFileModal">+ Subir Archivos</a>
-            <div id="uploadFileModal" class="reveal-modal tiny" data-reveal>
-                <br />
-                <form action="<?php echo $this->url('add-file'); ?>" method="post" enctype="multipart/form-data">
-                    <input type="hidden" name="folder" value="<?php echo $this->folder; ?>">
-                    <p>Subirá archivos dentro de <em>carpeta 1</em></p>
-                    <div class="small-12 columns">
-                        <label>Archivo
-                            <input type="file" name="file" />
-                        </label>
-                        <label>Descripción del Archivo
-                            <textarea placeholder="Escriba una descrición del archivo que subirá" name="file_description"></textarea>
-                        </label>
-                        <button class="button tiny" type="submit">Subir</button>
-                    </div>
-                    <a class="close-reveal-modal">&#215;</a>
-                </form>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="small-12 columns text-right">
-            <a href="#" data-reveal-id="deleteFolderModal">Borrar Carpetas</a>
-            <div id="deleteFolderModal" class="reveal-modal tiny" data-reveal>
-                <br />
-                <p>Al borrar las carpetas seleccionadas, se borrarán todo el contenido que tenga y no podrá recuperarse. ¿Está seguro de continuar?</p>
-                    <button class="button tiny alert">Borrar</button>
-                <a class="close-reveal-modal">&#215;</a>
-            </div>
-        </div>
-        <form>
-            <div class="small-12 columns">
-                <div class="panel">
+            <li class="current"><a
+				href="<?php echo $this->url('my-repo', array('folder'=>$last['fsciId'])); ?>"><?php echo $last['fscvRealName']; ?></a></li>
+		</ul>
+	</div>
+	<?php if($client['admin']) { ?>
+	<div class="row">
+		<div class="small-6 medium-2 columns">
+			<a href="#" class="button radius tiny expand"
+				data-reveal-id="createFolderModal">Crear Carpeta</a>
+			<div id="createFolderModal" class="reveal-modal tiny" data-reveal>
+				<br />
+				<form action="<?php echo $this->url('create-folder'); ?>"
+					method="post">
+					<input type="hidden" name="folder"
+						value="<?php echo $this->folder; ?>">
+					<p>
+						Creará un carpeta nueva dentro de <strong><em><?php echo isset($currentFolderInfo)?$currentFolderInfo->getFscvRealName():$client['name']; ?></em></strong>
+					</p>
+					<div class="small-12 columns">
+						<label>Nombre de la nueva carpeta <input type="text"
+							name="folder_name"
+							placeholder="escriba un nombre para la nueva carpeta" />
+						</label>
+						<button class="button tiny" type="submit">Crear</button>
+					</div>
+					<a class="close-reveal-modal">&#215;</a>
+				</form>
+			</div>
+		</div>
+		<div class="small-6 medium-10 columns">
+			<a href="#" class="button radius tiny"
+				data-reveal-id="uploadFileModal">+ Subir Archivos</a>
+			<div id="uploadFileModal" class="reveal-modal tiny" data-reveal>
+				<br />
+				<form action="<?php echo $this->url('add-file'); ?>" method="post"
+					enctype="multipart/form-data">
+					<input type="hidden" name="folder"
+						value="<?php echo $this->folder; ?>">
+					<p>
+						Subirá archivos dentro de <em><?php echo isset($currentFolderInfo)?$currentFolderInfo->getFscvRealName():$client['name']; ?></em>
+					</p>
+					<div data-dojo-id="modalStandby" data-dojo-type="dojox.widget.Standby" data-dojo-props="target:'modalUpload', color:'#008cba'"></div>
+					<div class="small-12 columns">
+					    <div id="modalUpload">
+    						<div name="file" multiple="true"
+    							data-dojo-type="dojox.form.Uploader"
+    							data-dojo-id="uploader1" style="min-height: 150px; width: 150px"></div>
+    						<label>Descripción del Archivo
+    						  <textarea name="file_description"></textarea>
+    						</label>
+    						<button class="button tiny" type="submit">Subir</button>
+						</div>
+					</div>
+					<a class="close-reveal-modal">&#215;</a>
+				</form>
+			</div>
+		</div>
+	</div>
+	<?php } ?>
+	<div class="row">
+        <?php if($client['admin'] && !empty($folders)) { ?>
+		<div class="small-12 columns text-right">
+			<a href="#" data-reveal-id="deleteFolderModal">Borrar Carpetas</a>
+			<div id="deleteFolderModal" class="reveal-modal tiny" data-reveal>
+				<br />
+				<p>Al borrar las carpetas seleccionadas, se borrarán todo el
+					contenido que tenga y no podrá recuperarse. ¿Está seguro de
+					continuar?</p>
+				<button class="button tiny alert" type="submit"
+					onclick="$('#deleteFoldersForm').submit(); return false;">Borrar</button>
+				<a class="close-reveal-modal">&#215;</a>
+			</div>
+		</div>
+		<?php } ?>
+		<?php if($client['admin']) { ?>
+		<form method="post" action="<?php echo $this->url('delete-folder'); ?>" id="deleteFoldersForm">
+			<input type="hidden" name="folder" value="<?php echo $this->currentFolder; ?>">
+        <?php } ?>
+            <?php if(!empty($folders)) { ?>
+			<div class="small-12 columns">
+				<div class="panel">
                     <?php foreach($folders as $folder) { ?>
                     <div class="row list files <?php echo $this->cycle(array('row-1', 'row-2'))->next() ?>">
-                        <div class="small-12 columns">
-                            <input id="folder_<?php echo $folder['fsciId']; ?>" type="checkbox"><label for="folder_<?php echo $folder['fsciId']; ?>"><a href="<?php echo $this->url('my-repo', array('folder'=>$folder['fsciId'])); ?>"><?php echo $folder['fscvRealName']; ?></a></label>
+						<div class="small-12 columns">
+                            <?php if($client['admin']) { ?>
+							<input name="folders[]" id="folder_<?php echo $folder['fsciId']; ?>" value="<?php echo $folder['fsciId']; ?>" type="checkbox">
+							<?php } ?>
+							<label for="folder_<?php echo $folder['fsciId']; ?>"><a href="<?php echo $this->url('my-repo', array('folder'=>$folder['fsciId'])); ?>"><?php echo $folder['fscvRealName']; ?></a></label>
+						</div>
+						<div class="small-12 columns <?php if($client['admin']) { ?> tab-40<?php } ?> text-small">
+                            <?php echo $folder['total']['folder']; ?> Carpetas, <?php echo $folder['total']['files']; ?> Archivos
                         </div>
-                        <div class="small-12 columns tab-40 text-small">
-                            <?php echo rand(1,8); ?> Carpetas, <?php echo rand(0,20); ?> Archivos
-                        </div>
-                    </div>
+					</div>
                     <?php } ?>
                 </div>
-            </div>
-        </form>
-        <div class="small-12 columns text-right">
-            <a href="#" data-reveal-id="deleteFilesModal">Borrar Archivos</a>
-            <div id="deleteFilesModal" class="reveal-modal tiny" data-reveal>
-                <br />
-                <p>¿Está seguro de borrar los archivos seleccionados?</p>
-                    <button class="button tiny alert">Borrar</button>
-                <a class="close-reveal-modal">&#215;</a>
-            </div>
-        </div>
-        <form>
-            <div class="small-12 columns">
-                <div class="panel">
+			</div>
+			<?php } ?>
+        <?php if($client['admin']) { ?>
+		</form>
+		<?php } ?>
+		<?php if($client['admin'] && !empty($files)) { ?>
+		<div class="small-12 columns text-right">
+			<a href="#" data-reveal-id="deleteFilesModal">Borrar Archivos</a>
+			<div id="deleteFilesModal" class="reveal-modal tiny" data-reveal>
+				<br />
+				<p>¿Está seguro de borrar los archivos seleccionados?</p>
+				<button class="button tiny alert" type="submit"
+					onclick="$('#deleteFilesForm').submit(); return false;">Borrar</button>
+				<a class="close-reveal-modal">&#215;</a>
+			</div>
+		</div>
+		<?php } ?>
+		<?php if($client['admin']) { ?>
+		<form method="post" action="<?php echo $this->url('delete-file'); ?>"
+			id="deleteFilesForm">
+			<input type="hidden" name="folder"
+				value="<?php echo $this->currentFolder; ?>">
+        <?php } ?>
+            <?php if(!empty($files)) { ?>
+			<div class="small-12 columns">
+				<div class="panel">
                     <?php foreach($files as $file) { ?>
-                    <div class="row list files <?php echo $this->cycle(array('row-2', 'row-1'))->next() ?>">
-                        <div class="small-8 large-5 columns">
-                            <input id="file-<?php echo $file['fsciId']; ?>" type="checkbox">
-                            <label for="file-<?php echo $file['fsciId']; ?>"><a href="<?php echo $this->url('view-file', array('filename'=>$file['fisvName'])); ?>"><?php echo $file['fscvRealName']; ?></a></label>
-                        </div>
-                        <div class="show-for-large-up large-5 columns"><?php echo $file['fsctDescription']; ?></div>
-                        <div class="small-4 large-2 columns text-right"><a href="<?php echo $this->url('download-file', array('filename'=>$file['fisvName'])); ?>">Descargar</a></div>
-                        <div class="small-4 medium-2 large-2 columns text-small tab-40"><?php echo $file['fscdUploadDate']->format('d-m-Y'); ?></div>
-                        <div class="small-8 medium-2 large-2 columns text-small">Descargas: <?php echo rand(1, 9); ?></div>
-                        <div class="small-12 medium-8 columns text-small show-for-medium-up" >md5-hash: <?php echo $file['fisvName']; ?></div>
-                    </div>
+                    <div
+						class="row list files <?php echo $this->cycle(array('row-2', 'row-1'))->next() ?>">
+						<div class="small-8 large-5 columns">
+                            <?php if($client['admin']) { ?>
+							<input name="files[]" id="file-<?php echo $file['fsciId']; ?>"
+								value="<?php echo $file['fsciId']; ?>" type="checkbox">
+							<?php } ?>
+							<label for="file-<?php echo $file['fsciId']; ?>"><a
+								href="<?php echo $this->url('view-file', array('folder'=>$file['fsciParentId'], 'filename'=>$file['fisvName'])); ?>"><?php echo $file['fscvRealName']; ?></a></label>
+						</div>
+						<div class="show-for-large-up large-5 columns"><?php echo $file['fsctDescription']; ?></div>
+						<div class="small-4 large-2 columns text-right">
+							<a
+								href="<?php echo $this->url('download-file', array('folder'=>$file['fsciParentId'], 'filename'=>$file['fisvName'])); ?>">Descargar</a>
+						</div>
+						<div
+							class="small-4 medium-2 large-2 columns text-small<?php if($client['admin']) { ?>tab-40<?php } ?>"><?php echo $file['fscdUploadDate']->format('d-m-Y'); ?></div>
+						<div class="small-8 medium-2 large-2 columns text-small">Descargas: <?php echo $file['fsciTotalDownload']; ?></div>
+						<div
+							class="small-12 medium-8 columns text-small show-for-medium-up">md5-hash: <?php echo $file['fisvName']; ?></div>
+					</div>
                     <?php } ?>
                 </div>
-            </div>
-        </form>
-    </div>
+			</div>
+			<?php } ?>
+		<?php if($client['admin']) { ?>
+		</form>
+		<?php } ?>
+	</div>
 </div>
+<?php
+$script = '
+require([
+        "dojo",
+		"dojo/parser",
+		"dojox/form/Uploader",
+        "dojox/widget/Standby"
+	], function(dojo, parser, Uploader, Standby){
+		dojo.ready(function(){
+            dojo.parser;
+            document.body.appendChild(modalStandby.domNode);
+            dojo.connect(uploader1, "onChange", function(){
+                console.debug(uploader1.getFileList());
+            });
+            dojo.connect(uploader1, "onProgress", function(){
+                modalStandby.show();
+            });
+			dojo.connect(uploader1, "onComplete", function(){
+				window.location.reload();
+			})
+        });
+	});
+';
+
+$this->headScript()
+     ->appendScript($script, 'text/javascript');
+?>

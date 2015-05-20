@@ -44,3 +44,7 @@
 .row-2 {
 	background-color: #F5F5F5;
 }
+
+input.dijitOffScreen {
+	display: none;
+}
