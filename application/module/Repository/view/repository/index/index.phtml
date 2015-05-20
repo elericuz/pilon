@@ -85,30 +85,22 @@
 		</div>
 		<?php } ?>
 		<?php if($client['admin']) { ?>
-		<form method="post"
-			action="<?php echo $this->url('delete-folder'); ?>"
-			id="deleteFoldersForm">
-			<input type="hidden" name="folder"
-				value="<?php echo $this->currentFolder; ?>">
+		<form method="post" action="<?php echo $this->url('delete-folder'); ?>" id="deleteFoldersForm">
+			<input type="hidden" name="folder" value="<?php echo $this->currentFolder; ?>">
         <?php } ?>
             <?php if(!empty($folders)) { ?>
 			<div class="small-12 columns">
 				<div class="panel">
                     <?php foreach($folders as $folder) { ?>
-                    <div
-						class="row list files <?php echo $this->cycle(array('row-1', 'row-2'))->next() ?>">
+                    <div class="row list files <?php echo $this->cycle(array('row-1', 'row-2'))->next() ?>">
 						<div class="small-12 columns">
                             <?php if($client['admin']) { ?>
-							<input name="folders[]"
-								id="folder_<?php echo $folder['fsciId']; ?>"
-								value="<?php echo $folder['fsciId']; ?>" type="checkbox">
+							<input name="folders[]" id="folder_<?php echo $folder['fsciId']; ?>" value="<?php echo $folder['fsciId']; ?>" type="checkbox">
 							<?php } ?>
-							<label for="folder_<?php echo $folder['fsciId']; ?>"><a
-								href="<?php echo $this->url('my-repo', array('folder'=>$folder['fsciId'])); ?>"><?php echo $folder['fscvRealName']; ?></a></label>
+							<label for="folder_<?php echo $folder['fsciId']; ?>"><a href="<?php echo $this->url('my-repo', array('folder'=>$folder['fsciId'])); ?>"><?php echo $folder['fscvRealName']; ?></a></label>
 						</div>
-						<div
-							class="small-12 columns <?php if($client['admin']) { ?> tab-40<?php } ?> text-small">
-                            <?php echo rand(1,8); ?> Carpetas, <?php echo rand(0,20); ?> Archivos
+						<div class="small-12 columns <?php if($client['admin']) { ?> tab-40<?php } ?> text-small">
+                            <?php echo $folder['total']['folder']; ?> Carpetas, <?php echo $folder['total']['files']; ?> Archivos
                         </div>
 					</div>
                     <?php } ?>

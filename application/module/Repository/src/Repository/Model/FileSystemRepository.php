@@ -78,8 +78,38 @@ class FileSystemRepository extends EntityRepository
              ->where('fs.fisiType=0')
              ->andWhere('fsc.fsciParentId='.$parent)
              ->andWhere('fsc.fsciStatus=1');
-//        if($parent>0 && $client>1)
-  //          $query->andWhere('fsc.clii='.$client);
+
+        $result = $query->getQuery()->getResult(Query::HYDRATE_ARRAY);
+
+        return $result;
+    }
+
+    public function countFolders($parent=0)
+    {
+        $query = $this->em->createQueryBuilder();
+        $query->select(
+                'count(fsc.fsciId)')
+              ->from('Application\Entity\FileSystemClient', 'fsc')
+              ->innerJoin('fsc.fisi', 'fs')
+              ->where('fs.fisiType=0')
+              ->andWhere('fsc.fsciParentId='.$parent)
+              ->andWhere('fsc.fsciStatus=1');
+
+        $result = $query->getQuery()->getResult(Query::HYDRATE_ARRAY);
+
+        return $result;
+    }
+
+    public function countFiles($parent=0)
+    {
+        $query = $this->em->createQueryBuilder();
+        $query->select(
+                'count(fsc.fsciId)')
+              ->from('Application\Entity\FileSystemClient', 'fsc')
+              ->innerJoin('fsc.fisi', 'fs')
+              ->where('fs.fisiType=1')
+              ->andWhere('fsc.fsciParentId='.$parent)
+              ->andWhere('fsc.fsciStatus=1');
 
         $result = $query->getQuery()->getResult(Query::HYDRATE_ARRAY);
 
