@@ -17,8 +17,7 @@
 	<?php if($client['admin']) { ?>
 	<div class="row">
 		<div class="small-6 medium-2 columns">
-			<a href="#" class="button radius tiny expand"
-				data-reveal-id="createFolderModal">Crear Carpeta</a>
+			<a href="#" class="button success radius tiny expand" data-reveal-id="createFolderModal">Crear Carpeta</a>
 			<div id="createFolderModal" class="reveal-modal tiny" data-reveal>
 				<br />
 				<form action="<?php echo $this->url('create-folder'); ?>"
@@ -33,14 +32,14 @@
 							name="folder_name"
 							placeholder="escriba un nombre para la nueva carpeta" />
 						</label>
-						<button class="button tiny" type="submit">Crear</button>
+						<button class="button success tiny" type="submit">Crear</button>
 					</div>
 					<a class="close-reveal-modal">&#215;</a>
 				</form>
 			</div>
 		</div>
 		<div class="small-6 medium-10 columns">
-			<a href="#" class="button radius tiny"
+			<a href="#" class="button success radius tiny"
 				data-reveal-id="uploadFileModal">+ Subir Archivos</a>
 			<div id="uploadFileModal" class="reveal-modal tiny" data-reveal>
 				<br />
@@ -60,7 +59,7 @@
     						<label>Descripción del Archivo
     						  <textarea name="file_description"></textarea>
     						</label>
-    						<button class="button tiny" type="submit">Subir</button>
+    						<button class="button success tiny" type="submit">Subir</button>
 						</div>
 					</div>
 					<a class="close-reveal-modal">&#215;</a>
