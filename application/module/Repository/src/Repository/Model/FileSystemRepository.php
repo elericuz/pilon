@@ -18,6 +18,7 @@ class FileSystemRepository extends EntityRepository
         $query = $this->em->createQueryBuilder();
         $query->select(array(
                 'fsc.fsciId',
+                'fsc.fsciParentId',
                 'fsc.fscvRealName',
                 'fsc.fscdUploadDate',
                 'fsc.fsciTotalDownload',
@@ -42,6 +43,7 @@ class FileSystemRepository extends EntityRepository
         $query = $this->em->createQueryBuilder();
         $query->select(array(
                 'fsc.fsciId',
+                'fsc.fsciParentId',
                 'fsc.fscvRealName',
                 'fsc.fscdUploadDate',
                 'fsc.fsciTotalDownload',
