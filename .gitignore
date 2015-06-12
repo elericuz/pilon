@@ -14,3 +14,6 @@ public/static/dojo
 public/static/foundation
 vendor/
 .DS_Store
+application/data/repository/
+logs/
+application/config/autoload/doctrine.global.php

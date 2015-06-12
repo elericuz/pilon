@@ -1,25 +1,13 @@
 <?php
 return array(
     'doctrine' => array(
-        'driver' => array(
-            'Application_driver' => array(
-                'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
-			    'cache' => 'array',
-			    'paths' => array(__DIR__ . '/../src/Application/Entity')
-			),
-			'orm_default' => array(
-			    'drivers' => array(
-			        'Application\Entity' =>  'Application_driver'
-			    ),
-			),
-        ),
         'connection' => array(
             'orm_default' => array(
                 'driverClass' => 'Doctrine\DBAL\Driver\PDOMySql\Driver',
                 'params' => array(
-					'host' => 'localhost',
+					'host' => '127.0.0.1',
 					'port' => '3306',
-					'dbname' => 'beaker',
+					'dbname' => 'SysStack',
 					'user' => 'devuser',
 					'password' => 'password',
                 ),
