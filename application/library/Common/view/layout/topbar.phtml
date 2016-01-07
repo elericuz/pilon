@@ -32,7 +32,12 @@
             </li>
             <li class="divider"></li>
             <li>
-                <a href="<?php echo $this->url('my-repo'); ?>">Repositorio</a>
+		<?php
+                $param = array(
+                    'folder' => $this->layout()->_userType === 1 ? 0 : $this->layout()->_repoParent
+                );
+                ?>
+                <a href="<?php echo $this->url('my-repo', $param); ?>">Repositorio</a>
             </li>
             <li class="divider"></li>
             <?php if($this->layout()->_clientZone) { ?>
