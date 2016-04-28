@@ -23,7 +23,18 @@ class FolderController extends MainController
         $request = $this->getRequest();
         if($request->isPost())
         {
-            $Client_obj = $this->em->find('Application\Entity\Client', $this->clientId);
+            $folderParent = $request->getPost('folder');
+            if($folderParent == 0)
+            {
+                $parent = $this->clientId;
+            }
+            else
+            {
+                $fsc = $this->em->find('Application\Entity\FileSystemClient', $folderParent);
+                $parent = $fsc->getClii()->getCliiId();
+            }
+
+            $Client_obj = $this->em->find('Application\Entity\Client', $parent);
 
             $FS_obj = new FileSystem();
             $FS_obj->setFisiParentId(0);
