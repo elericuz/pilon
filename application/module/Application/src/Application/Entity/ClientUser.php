@@ -45,6 +45,20 @@ class ClientUser
     /**
      * @var string
      *
+     * @ORM\Column(name="cluv_name", type="string", length=150, nullable=true)
+     */
+    private $cluvName;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="cluv_lastname", type="string", length=150, nullable=true)
+     */
+    private $cluvLastname;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="cluv_email", type="string", length=150, nullable=true)
      */
     private $cluvEmail;
@@ -71,7 +85,7 @@ class ClientUser
     /**
      * Get cluiId
      *
-     * @return integer 
+     * @return integer
      */
     public function getCluiId()
     {
@@ -94,7 +108,7 @@ class ClientUser
     /**
      * Get cluiType
      *
-     * @return integer 
+     * @return integer
      */
     public function getCluiType()
     {
@@ -117,7 +131,7 @@ class ClientUser
     /**
      * Get cluvUser
      *
-     * @return string 
+     * @return string
      */
     public function getCluvUser()
     {
@@ -140,11 +154,37 @@ class ClientUser
     /**
      * Get cluvPassword
      *
-     * @return string 
+     * @return string
      */
     public function getCluvPassword()
     {
         return $this->cluvPassword;
+    }
+
+    /**
+     * Set cluvLastname
+     *
+     * @param string $cluvLastname
+     * @return ClientUser
+     */
+    public function setCluvLastname($cluvLastname)
+    {
+        $this->cluvLastname = $cluvLastname;
+
+        return $this;
+    }
+
+    /**
+     * Set cluvName
+     *
+     * @param string $cluvName
+     * @return ClientUser
+     */
+    public function setCluvName($cluvName)
+    {
+        $this->cluvName = $cluvName;
+
+        return $this;
     }
 
     /**
@@ -161,9 +201,29 @@ class ClientUser
     }
 
     /**
+     * Get cluvName
+     *
+     * @return string
+     */
+    public function getCluvName()
+    {
+        return $this->cluvName;
+    }
+
+    /**
+     * Get cluvLastname
+     *
+     * @return string
+     */
+    public function getCluvLastname()
+    {
+        return $this->cluvLastname;
+    }
+
+    /**
      * Get cluvEmail
      *
-     * @return string 
+     * @return string
      */
     public function getCluvEmail()
     {
@@ -186,7 +246,7 @@ class ClientUser
     /**
      * Get cluiStatus
      *
-     * @return integer 
+     * @return integer
      */
     public function getCluiStatus()
     {
@@ -209,7 +269,7 @@ class ClientUser
     /**
      * Get clii
      *
-     * @return \Application\Entity\Client 
+     * @return \Application\Entity\Client
      */
     public function getClii()
     {

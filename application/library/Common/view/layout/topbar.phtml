@@ -41,6 +41,11 @@
             </li>
             <li class="divider"></li>
             <?php } ?>
+            <?php if($this->layout()->_adminZone) { ?>
+            <li>
+                <a href="<?php echo $this->url('users'); ?>">Usuarios</a>
+            </li>
+            <?php } ?>
         </ul>
     </section>
 </nav>

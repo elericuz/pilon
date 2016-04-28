@@ -65,6 +65,39 @@ return array(
                     ),
                 ),
             ),
+            'users' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/user',
+                    'defaults' => array(
+                        'controller' => 'Security\Controller\User',
+                        'action' => 'index',
+                    ),
+                ),
+            ),
+            'delete-users' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/user-delete',
+                    'defaults' => array(
+                        'controller' => 'Security\Controller\User',
+                        'action' => 'delete',
+                    ),
+                ),
+            ),
+            'create-users' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/user-create[/:id]',
+                    'constraints' => array(
+                        'id' => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Security\Controller\User',
+                        'action' => 'create',
+                    ),
+                ),
+            ),
         ),
     ),
 );
