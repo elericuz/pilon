@@ -67,8 +67,10 @@ class MainController extends AbstractActionController
         if($this->needLogin && !$this->getServiceLocator()->get('AuthService')->hasIdentity())
             return $this->redirect()->toRoute('home');
 
-        if($this->userType && $this->clientType)
+        if($this->userType && $this->clientType) {
             $this->layout()->_clientZone = true;
+            $this->layout()->_adminZone = true;
+        }
 
         if($this->needAdmin && !($this->clientType && $this->userType))
             return $this->redirect()->toRoute('home');

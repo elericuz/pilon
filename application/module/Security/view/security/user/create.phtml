@@ -1,0 +1,54 @@
+<div class="small-12 medium-8 large-12 columns">
+    <div class="row">
+        <div class="small-12 columns">
+            <h2><small>Crear Usuario</small></h2>
+            <div class="row">
+                <div class="small-12 columns">
+                    <a href="<?php echo $this->url('create-users'); ?>" class="button tiny radius">Crear Usuario</a>
+                    <div class="panel">
+                        <form action="<?php echo $this->url('create-users'); ?>" method="post">
+                            <input type="hidden" name="cluiId" id="cluiId"
+                                   value="<?php echo isset($this->user) ? $this->user->getCluiId() : 0; ?>">
+                            <div class="small-12 columns">
+                                Nombre<br>
+                                <input type="text" placeholder="Ingrese el nombre del usuario" name="cluvName" id="cluvName"
+                                       value="<?php echo isset($this->user) ? $this->user->getCluvName() : ''; ?>">
+                            </div>
+                            <div class="small-12 columns">
+                                Apellidos<br>
+                                <input type="text" placeholder="Ingrese los apellidos del usuario" name="cluvLastname" id="cluvLastname"
+                                       value="<?php echo isset($this->user) ? $this->user->getCluvLastname() : ''; ?>">
+                            </div>
+                            <div class="small-12 columns">
+                                Email<br>
+                                <input type="text" placeholder="Ingrese el correo electrónico del usuario" name="cluvEmail"
+                                id="cluvEmail" value="<?php echo isset($this->user) ? $this->user->getCluvEmail() : ''; ?>">
+                            </div>
+                            <div class="small-12 columns">
+                                <input type="checkbox"
+                                       name="cluiType"
+                                       id="cluiType"
+                                       value="1"
+                                       <?php echo (isset($this->user) && $this->user->getCluiType() == 1) ? 'checked' : ''; ?>>
+                                       Este es un usuario administrador
+                            </div>
+                            <div class="small-12 columns">
+                                Password<br>
+                                <input type="password" placeholder="Ingrese la contraseña" name="cluvPassword" id="cluvPassword">
+                            </div>
+                            <div class="small-12 columns">
+                                Confirme el Password<br>
+                                <input type="password" placeholder="Confirme la contraseña" name="cluvPassword2" id="cluvPassword2">
+                            </div>
+                            <input type="submit" name="createuser" value="Guardar" class="button tiny radius">
+                            <a href="<?php echo $this->url('users'); ?>" class="button warning tiny radius">Cancelar</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="small-12 medium-4 large-5 columns">
+   &nbsp;
+</div>
