@@ -7,7 +7,7 @@ return array(
                 'params' => array(
 					'host' => '127.0.0.1',
 					'port' => '3306',
-					'dbname' => 'SysStack',
+					'dbname' => 'SysStack_t_02',
 					'user' => 'devuser',
 					'password' => 'password',
                 ),

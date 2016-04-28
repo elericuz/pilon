@@ -22,6 +22,7 @@ class FileSystemRepository extends EntityRepository
                 'fsc.fscvRealName',
                 'fsc.fscdUploadDate',
                 'fsc.fsciTotalDownload',
+                'fsc.fsctDescription',
                 'fs.fisvName'))
              ->from('Application\Entity\FileSystemClient', 'fsc')
              ->innerJoin('fsc.fisi', 'fs')
@@ -47,6 +48,7 @@ class FileSystemRepository extends EntityRepository
                 'fsc.fscvRealName',
                 'fsc.fscdUploadDate',
                 'fsc.fsciTotalDownload',
+                'fsc.fsctDescription',
                 'fs.fisvName'))
              ->from('Application\Entity\FileSystemClient', 'fsc')
              ->innerJoin('fsc.fisi', 'fs')

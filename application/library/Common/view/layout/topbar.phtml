@@ -1,7 +1,7 @@
 <nav class="top-bar" data-topbar role="navigation">
     <ul class="title-area">
         <li class="name">
-            <h1><a href="#">Cruz Verde</a></h1>
+            <h1><a href="<?php echo WEBSITE_URL; ?>"><?php echo WEBSITE_NAME?></a></h1>
         </li>
         <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
         <li class="toggle-topbar menu-icon">
@@ -21,7 +21,7 @@
                 </ul>
             </li>
             <li class="active">
-                <a href="#">SysBus</a>
+                <a href="<?php echo DEVELOPER_URL; ?>"><?php echo DEVELOPER_NAME; ?></a>
             </li>
         </ul>
         <!-- Left Nav Section -->
@@ -32,7 +32,7 @@
             </li>
             <li class="divider"></li>
             <li>
-                <a href="<?php echo $this->url('my-repo'); ?>">Repositorio</a>
+                <a href="<?php echo $this->url('my-repo'); ?>">Archivos</a>
             </li>
             <li class="divider"></li>
             <?php if($this->layout()->_clientZone) { ?>
