@@ -9,8 +9,8 @@
                     <div class="row list files <?php echo $this->cycle(array('row-1', 'row-2'))->next() ?>">
                         <div class="small-12 columns"><a href="<?php echo $this->url('view-file', array('folder'=>$file['fsciParentId'], 'filename'=>$file['fisvName'])); ?>"><?php echo $file['fscvRealName']; ?></a></div>
                         <div class="small-4 medium-3 large-3 columns text-small"><?php echo $file['fscdUploadDate']->format('d-m-Y'); ?></div>
-                        <div class="small-8 medium-4 end large-3 columns text-small">Descargas: <?php echo $file['fsciTotalDownload']; ?></div>
-                        <div class="small-12 medium-12 large-6 columns text-small">md5:<?php echo $file['fisvName']; ?></div>
+                        <div class="small-8 medium-4 end large-3 columns text-small"><b>Descargas</b>: <?php echo $file['fsciTotalDownload']; ?></div>
+                        <div class="small-12 medium-12 large-6 columns text-small"><b>Observación</b>:<?php echo $file['fsctDescription']; ?></div>
                     </div>
                     <?php } ?>
                     </div>
@@ -28,8 +28,8 @@
                     <div class="row list files <?php echo $this->cycle(array('row-1', 'row-2'))->next() ?>">
                         <div class="small-12 columns"><a href="<?php echo $this->url('view-file', array('folder'=>$file['fsciParentId'], 'filename'=>$file['fisvName'])); ?>"><?php echo $file['fscvRealName']; ?></a></div>
                         <div class="small-4 medium-3 large-3 columns text-small"><?php echo $file['fscdUploadDate']->format('d-m-Y'); ?></div>
-                        <div class="small-8 medium-4 end large-3 columns text-small">Descargas: <?php echo $file['fsciTotalDownload']; ?></div>
-                        <div class="small-12 medium-12 large-6 columns text-small">md5:<?php echo $file['fisvName']; ?></div>
+                        <div class="small-8 medium-4 end large-3 columns text-small"><b>Descargas</b>: <?php echo $file['fsciTotalDownload']; ?></div>
+                        <div class="small-12 medium-12 large-6 columns text-small"><b>Observación</b>: <?php echo $file['fsctDescription']; ?></div>
                     </div>
                     <?php } ?>
                     </div>
