@@ -1,39 +1,70 @@
 <?php echo $this->doctype(); ?>
 
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <?php echo $this->headTitle('Pilon Cruz Verde'); ?>
 
-        <?php echo $this->headMeta()
-            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
-            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
-        ?>
 
-        <!-- Le styles -->
-        <?php
-        echo $this->headLink(array(
-                'rel' => 'shortcut icon',
-                'type' => 'image/vnd.microsoft.icon',
-                'href' => $this->basePath() . '/img/favicon.ico'))
-                  ->prependStylesheet($this->basePath('vendor/foundation/foundation/css/foundation.css'))
-                  ->prependStylesheet($this->basePath('css/app.css'));
-        ?>
 
-        <!-- Scripts -->
-        <?php
-        echo $this->headScript()
-                  ->prependFile($this->basePath('vendor/foundation/foundation/js/vendor/modernizr.js'));
-        ?>
 
-    </head>
-    <body>
-        <?php echo $this->content; ?>
-        <?php echo $this->inlineScript() ?>
-        <script src="vendor/foundation/foundation/js/vendor/jquery.js"></script>
-        <script src="vendor/foundation/foundation/js/foundation.min.js"></script>
-        <script>
-        $(document).foundation();
-        </script>
-    </body>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <?php
+    echo $this->headTitle('Pilon Cruz Verde');
+    echo $this->headMeta()
+              ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+              ->appendHttpEquiv('X-UA-Compatible', 'IE=edge');
+    echo $this->headLink(
+                array(
+                    'rel' => 'shortcut icon',
+                    'type' => 'image/vnd.microsoft.icon',
+                    'href' => $this->basePath() . '/img/favicon.ico')
+                )
+              ->prependStylesheet($this->basePath('vendor/foundation/foundation/css/foundation.css'))
+              ->prependStylesheet($this->basePath('css/app.css'));
+    ?>
+</head>
+<body>
+    <div class="fixed">
+        <nav class="top-bar" data-topbar role="navigation">
+            <ul class="title-area">
+                <li class="name">
+                    <h1><a href="<?php echo "http://ecocloud.cruzverdeperu.com"; ?>"><?php echo "Cruz Verde"; ?></a></h1>
+                </li>
+            </ul>
+            <section class="top-bar-section">
+                <!-- Right Nav Section -->
+                <ul class="right">
+                    <li class="divider"></li>
+                    <li class="active">
+                        <a href="<?php echo "http://www.sysbusperu.com"; ?>"><?php echo "SysbusPeru"; ?></a>
+                    </li>
+                </ul>
+            </section>
+        </nav>
+    </div>
+    <br>
+    <div class="row">
+        <div class="medium-7 large-6 columns">
+            <h1>Sistema de Gestión de Archivos de Cruz Verde</h1>
+            <p class="subheader"></p>
+        </div>
+        <div class="show-for-large large-3 columns">
+            <img src="/img/logocv.jpg" alt="Cruz Verde">
+        </div>
+        <div class="medium-5 large-3 columns">
+            <div class="callout secondary">
+                <?php echo $this->content; ?>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <hr>
+        <div class="text-center"><cite>Sistema de Gestión de Archivos de Cruz Verde desarrollado por <a href="<?php echo "http://www.sysbusperu.com"; ?>"><?php echo "SysbusPeru"; ?></a>. <?php echo date("Y"); ?></cite></div>
+    </div>
+    <script src="vendor/foundation/foundation/js/vendor/jquery.js"></script>
+    <script src="vendor/foundation/foundation/js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+    </script>
+</body>
 </html>

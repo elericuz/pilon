@@ -25,10 +25,10 @@ class LoginController extends MainController
 
             $empty_obj = new NotEmpty();
             if(!$empty_obj->isValid($email) || !$email)
-                throw new \RuntimeException("El usuario no es válido");
+                return $this->redirect()->toRoute('home');
 
             if(!$empty_obj->isValid($password) || !$password)
-                throw new \RuntimeException("La contraseña no es válida");
+                return $this->redirect()->toRoute('home');
 
             $password = Encrypt::encrypt(trim($password), trim($email));
             $email = md5(trim($email));
@@ -36,10 +36,10 @@ class LoginController extends MainController
             $user_obj = $this->em->getRepository('Application\Entity\ClientUser')->findOneByCluvUser($email);
 
             if(!$empty_obj->isValid($user_obj))
-                throw new \RuntimeException("El ussuario no es válido");
+                return $this->redirect()->toRoute('home');
 
             if($user_obj->getCluvPassword()!==$password)
-                throw new \RuntimeException("La contraseña no es válida");
+                return $this->redirect()->toRoute('home');
 
             $client = array(
                 'clientId' => $user_obj->getClii()->getCliiId(),

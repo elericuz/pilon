@@ -17,7 +17,7 @@ class IndexController extends MainController
 
         $empty_obj = new NotEmpty();
 
-        if(!$parent)
+        if(!$parent || $parent == 0)
         {
             if(!$this->clientAdmin)
             {

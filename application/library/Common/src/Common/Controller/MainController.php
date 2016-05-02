@@ -12,6 +12,7 @@ namespace Common\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\EventManager\EventManagerInterface;
 use Zend\View\Model\ViewModel;
+use Application\Entity\FileSystemClient;
 
 class MainController extends AbstractActionController
 {
@@ -25,6 +26,7 @@ class MainController extends AbstractActionController
     protected $needAdmin = 0;
     protected $clientName;
     protected $clientAdmin;
+    protected $repoParent = 0;
 
     public function setEventManager(EventManagerInterface $events)
     {
@@ -58,7 +60,16 @@ class MainController extends AbstractActionController
             $this->clientType = $client['clientType'];
             $this->userType = $client['userType'];
             $this->layout()->_clientName = $this->clientName;
+	    $this->layout()->_userType = $this->userType;
             $this->clientAdmin = $client['clientType']?1:0;
+
+            $repo = $this->em->getRepository('Application\Entity\FileSystemClient')->findOneBy(array('clii'=>$this->clientId, 'fsciParentId'=>0));
+            if($repo instanceof FileSystemClient)
+            {
+                $this->repoParent = $repo->getFsciId();
+            }
+
+            $this->layout()->_repoParent = $this->repoParent;
         }
     }
 
